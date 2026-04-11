@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import type { ContractWriteResult } from "@/lib/contracts/token";
+import type { ContractWriteResult } from "@/lib/contracts/token.ts";
 import { addActivityItem } from "@/lib/cache/activity-store";
 
 export type TransactionPhase = "idle" | "submitting" | "success" | "error";

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { toTokenAmount } from "@/lib/contracts/token";
+import { toTokenAmount } from "@/lib/contracts/token.ts";
 
 describe("token amount validation", () => {
   it("accepts positive integer strings", () => {

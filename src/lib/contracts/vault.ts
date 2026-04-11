@@ -8,7 +8,7 @@ import {
   toTokenAmount,
   type ContractWriteResult,
   type StellarClientConfig,
-} from "@/lib/contracts/token";
+} from "@/lib/contracts/token.ts";
 
 function readEnvValue(...keys: string[]) {
   const env = import.meta.env as ImportMetaEnv &

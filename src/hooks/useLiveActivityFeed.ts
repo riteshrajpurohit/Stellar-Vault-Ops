@@ -8,7 +8,7 @@ import {
 import {
   getTransactionStatus,
   getStellarClientConfig,
-} from "@/lib/contracts/token";
+} from "@/lib/contracts/token.ts";
 
 const POLL_INTERVAL_MS = 7000;
 

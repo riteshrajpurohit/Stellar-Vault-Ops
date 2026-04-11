@@ -6,8 +6,8 @@ import {
   getVaultTotals,
   hasVaultContractConfig,
   type VaultTotals,
-} from "@/lib/contracts/vault";
-import type { ContractWriteResult } from "@/lib/contracts/token";
+} from "@/lib/contracts/vault.ts";
+import type { ContractWriteResult } from "@/lib/contracts/token.ts";
 import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { cacheKeys } from "@/lib/cache/keys";
 import {

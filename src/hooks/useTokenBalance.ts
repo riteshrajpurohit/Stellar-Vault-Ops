@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getTokenBalance, hasTokenContractConfig } from "@/lib/contracts/token";
+import {
+  getTokenBalance,
+  hasTokenContractConfig,
+} from "@/lib/contracts/token.ts";
 import { useWalletConnection } from "@/hooks/useWalletConnection";
 import { cacheKeys } from "@/lib/cache/keys";
 import {

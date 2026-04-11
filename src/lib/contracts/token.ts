@@ -16,6 +16,20 @@ const DEFAULT_EXPLORER_TX_BASE_URL =
 const DEFAULT_TX_FEE = "100000";
 const CONTRACT_LOG_PREFIX = "[StellarVaultOps]";
 
+function readEnvValue(...keys: string[]) {
+  const env = import.meta.env as ImportMetaEnv &
+    Record<string, string | undefined>;
+
+  for (const key of keys) {
+    const value = env[key];
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+  }
+
+  return undefined;
+}
+
 export interface StellarClientConfig {
   networkPassphrase: string;
   rpcUrl: string;
@@ -38,14 +52,22 @@ export interface ContractWriteResult {
 }
 
 export function getStellarClientConfig(): StellarClientConfig {
+  const networkPassphrase =
+    readEnvValue("VITE_STELLAR_NETWORK_PASSPHRASE", "NEXT_PUBLIC_NETWORK") ||
+    STELLAR_TESTNET_NETWORK.networkPassphrase;
+  const rpcUrl =
+    readEnvValue("VITE_STELLAR_RPC_URL", "NEXT_PUBLIC_RPC_URL") ||
+    DEFAULT_RPC_URL;
+  const explorerTxBaseUrl =
+    readEnvValue(
+      "VITE_STELLAR_EXPLORER_TX_BASE_URL",
+      "NEXT_PUBLIC_EXPLORER_TX_BASE_URL",
+    ) || DEFAULT_EXPLORER_TX_BASE_URL;
+
   return {
-    networkPassphrase:
-      import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE?.trim() ||
-      STELLAR_TESTNET_NETWORK.networkPassphrase,
-    rpcUrl: import.meta.env.VITE_STELLAR_RPC_URL?.trim() || DEFAULT_RPC_URL,
-    explorerTxBaseUrl:
-      import.meta.env.VITE_STELLAR_EXPLORER_TX_BASE_URL?.trim() ||
-      DEFAULT_EXPLORER_TX_BASE_URL,
+    networkPassphrase,
+    rpcUrl,
+    explorerTxBaseUrl,
   };
 }
 
@@ -68,7 +90,10 @@ export async function getTransactionStatus(
 }
 
 export function getTokenContractConfig(): TokenContractConfig {
-  const contractId = import.meta.env.VITE_TOKEN_CONTRACT_ID?.trim();
+  const contractId = readEnvValue(
+    "VITE_TOKEN_CONTRACT_ID",
+    "NEXT_PUBLIC_TOKEN_CONTRACT_ID",
+  );
 
   if (!contractId) {
     throw new Error(
@@ -83,7 +108,9 @@ export function getTokenContractConfig(): TokenContractConfig {
 }
 
 export function hasTokenContractConfig() {
-  return Boolean(import.meta.env.VITE_TOKEN_CONTRACT_ID?.trim());
+  return Boolean(
+    readEnvValue("VITE_TOKEN_CONTRACT_ID", "NEXT_PUBLIC_TOKEN_CONTRACT_ID"),
+  );
 }
 
 export function getExplorerTxUrl(hash: string, explorerTxBaseUrl: string) {

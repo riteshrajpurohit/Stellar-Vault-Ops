@@ -27,6 +27,28 @@ function canUseStorage() {
   return typeof window !== "undefined" && Boolean(window.localStorage);
 }
 
+function jsonReplacer(_key: string, value: unknown) {
+  if (typeof value === "bigint") {
+    return { __type: "bigint", value: value.toString() };
+  }
+
+  return value;
+}
+
+function jsonReviver(_key: string, value: unknown) {
+  if (
+    value &&
+    typeof value === "object" &&
+    "__type" in value &&
+    (value as { __type?: string }).__type === "bigint" &&
+    "value" in value
+  ) {
+    return BigInt((value as { value: string }).value);
+  }
+
+  return value;
+}
+
 export function readCache<T>(key: string): CacheEntry<T> | null {
   const inMemory = cache.get(key) as CacheEntry<T> | undefined;
   if (inMemory) {
@@ -43,7 +65,7 @@ export function readCache<T>(key: string): CacheEntry<T> | null {
   }
 
   try {
-    const parsed = JSON.parse(raw) as CacheEntry<T>;
+    const parsed = JSON.parse(raw, jsonReviver) as CacheEntry<T>;
     cache.set(key, parsed);
     return parsed;
   } catch {
@@ -61,7 +83,10 @@ export function writeCache<T>(key: string, value: T) {
   cache.set(key, entry);
 
   if (canUseStorage()) {
-    window.localStorage.setItem(storageKey(key), JSON.stringify(entry));
+    window.localStorage.setItem(
+      storageKey(key),
+      JSON.stringify(entry, jsonReplacer),
+    );
   }
 
   notify(key);

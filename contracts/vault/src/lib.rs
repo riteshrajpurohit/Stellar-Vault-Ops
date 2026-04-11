@@ -1,8 +1,8 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contractclient, contracterror, contractimpl, contracttype, symbol_short, Address,
-    Env,
+    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, IntoVal,
+    Vec,
 };
 
 #[contracterror]
@@ -42,13 +42,6 @@ pub struct DepositEvent {
 pub struct DistributeEvent {
     pub to: Address,
     pub amount: i128,
-}
-
-#[contractclient(name = "TokenContractClient")]
-pub trait TokenContract {
-    fn transfer(from: Address, to: Address, amount: i128);
-    fn balance(owner: Address) -> i128;
-    fn mint(to: Address, amount: i128);
 }
 
 fn read_admin(e: &Env) -> Result<Address, VaultError> {
@@ -114,8 +107,18 @@ impl VaultContract {
         let vault_address = e.current_contract_address();
 
         // Real inter-contract call: moves tokens from user into this vault contract address.
-        let token_client = TokenContractClient::new(&e, &token_contract);
-        token_client.transfer(&from, &vault_address, &amount);
+        e.invoke_contract::<()>(
+            &token_contract,
+            &symbol_short!("transfer"),
+            Vec::from_array(
+                &e,
+                [
+                    from.clone().into_val(&e),
+                    vault_address.into_val(&e),
+                    amount.into_val(&e),
+                ],
+            ),
+        );
 
         let next_total_deposited = total_deposited(&e) + amount;
         e.storage()
@@ -142,8 +145,18 @@ impl VaultContract {
         let vault_address = e.current_contract_address();
 
         // Real inter-contract call: sends tokens from this vault contract address to the recipient.
-        let token_client = TokenContractClient::new(&e, &token_contract);
-        token_client.transfer(&vault_address, &to, &amount);
+        e.invoke_contract::<()>(
+            &token_contract,
+            &symbol_short!("transfer"),
+            Vec::from_array(
+                &e,
+                [
+                    vault_address.into_val(&e),
+                    to.clone().into_val(&e),
+                    amount.into_val(&e),
+                ],
+            ),
+        );
 
         let next_total_distributed = total_distributed(&e) + amount;
         e.storage()
@@ -171,10 +184,13 @@ impl VaultContract {
         read_admin(&e)?;
 
         let token_contract = read_token_contract(&e)?;
-        let token_client = TokenContractClient::new(&e, &token_contract);
         let vault_address = e.current_contract_address();
 
-        Ok(token_client.balance(&vault_address))
+        Ok(e.invoke_contract::<i128>(
+            &token_contract,
+            &symbol_short!("balance"),
+            Vec::from_array(&e, [vault_address.into_val(&e)]),
+        ))
     }
 
     pub fn token_contract(e: Env) -> Result<Address, VaultError> {

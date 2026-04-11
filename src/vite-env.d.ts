@@ -12,6 +12,11 @@ declare global {
     readonly VITE_STELLAR_NETWORK_PASSPHRASE?: string;
     readonly VITE_STELLAR_RPC_URL?: string;
     readonly VITE_STELLAR_EXPLORER_TX_BASE_URL?: string;
+    readonly NEXT_PUBLIC_TOKEN_CONTRACT_ID?: string;
+    readonly NEXT_PUBLIC_VAULT_CONTRACT_ID?: string;
+    readonly NEXT_PUBLIC_NETWORK?: string;
+    readonly NEXT_PUBLIC_RPC_URL?: string;
+    readonly NEXT_PUBLIC_EXPLORER_TX_BASE_URL?: string;
   }
 
   interface ImportMeta {

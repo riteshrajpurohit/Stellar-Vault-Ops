@@ -184,10 +184,6 @@ The UI follows a mobile-first responsive approach:
 - full-width action controls for touch usability
 - adaptive typography and spacing across breakpoints
 
-Screenshot placeholder:
-<img width="314" height="677" alt="Screenshot 2026-04-12 at 4 38 25 AM" src="https://github.com/user-attachments/assets/bb046d63-593c-4558-b5eb-d11874c5e16a" />
-
-
 ## 16. Screenshots
 
 ### Dashboard: 

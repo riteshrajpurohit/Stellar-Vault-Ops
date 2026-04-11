@@ -5,6 +5,7 @@ import {
   Wallet,
   ArrowRight,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -41,7 +42,9 @@ export function WalletStatusCard() {
               <Wallet className="h-5 w-5" />
             </div>
             <div>
-              <CardTitle className="text-lg">1. Connect your wallet</CardTitle>
+              <CardTitle className="text-lg sm:text-xl">
+                1. Connect your wallet
+              </CardTitle>
               <CardDescription>
                 Freighter is the first step. Connect it once, then the vault
                 actions below become available.
@@ -64,7 +67,13 @@ export function WalletStatusCard() {
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <div className="grid gap-4 rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-4 sm:p-5 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+        <motion.div
+          className="grid gap-4 rounded-2xl border border-dashed border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.06] to-blue-400/[0.04] p-4 sm:p-5 md:grid-cols-[1.2fr_0.8fr] md:items-center"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+        >
           <div className="space-y-2">
             <p className="text-sm font-semibold text-slate-200">
               {isConnected ? "Wallet ready" : "Start here"}
@@ -93,52 +102,98 @@ export function WalletStatusCard() {
               </Badge>
             )}
           </div>
-        </div>
+        </motion.div>
 
         <Separator />
 
-        <div className="grid gap-3 md:grid-cols-2">
-          <div className="surface-group">
+        <motion.div
+          className="grid gap-3 md:grid-cols-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
+          <motion.div
+            className="surface-group surface-group-stagger"
+            variants={{
+              hidden: { opacity: 0, y: 12 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
               Address
             </p>
-            <p className="mt-2 text-sm font-medium text-slate-200">
+            <p className="mt-2 text-sm font-medium text-slate-100">
               {formatWalletAddress(address)}
             </p>
-          </div>
-          <div className="surface-group">
+          </motion.div>
+          <motion.div
+            className="surface-group surface-group-stagger stagger-2"
+            variants={{
+              hidden: { opacity: 0, y: 12 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
               Network
             </p>
-            <p className="mt-2 text-sm font-medium text-slate-200">
+            <p className="mt-2 text-sm font-medium text-slate-100">
               {formatWalletNetwork(network)}
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {error ? (
-          <div className="flex gap-3 rounded-2xl border border-rose-400/20 bg-rose-400/8 p-4 text-sm text-rose-100">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-200" />
+          <motion.div
+            className="flex gap-3 rounded-2xl border border-red-400/25 bg-gradient-to-r from-red-400/[0.12] to-rose-400/[0.08] p-4 text-sm text-rose-100"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-300" />
             <div className="space-y-1">
               <p className="font-medium">{error.title}</p>
-              <p className="leading-6 text-rose-100/80">{error.message}</p>
+              <p className="leading-6 text-rose-100/75">{error.message}</p>
             </div>
-          </div>
+          </motion.div>
         ) : null}
 
-        <div className="flex flex-wrap items-center gap-3">
+        <motion.div
+          className="flex flex-wrap items-center gap-3"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <ConnectWalletButton className="w-full sm:w-auto" />
           {isConnected ? (
-            <Badge tone="default" className="w-full sm:w-auto">
-              <ArrowRight className="mr-2 h-3.5 w-3.5" />
-              You can now use vault actions below
-            </Badge>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Badge
+                tone="default"
+                className="w-full sm:w-auto bg-gradient-to-r from-emerald-400/80 to-green-400/80 shadow-glow-success"
+              >
+                <ArrowRight className="mr-2 h-3.5 w-3.5" />
+                You can now use vault actions below
+              </Badge>
+            </motion.div>
           ) : null}
-          <p className="text-xs leading-5 text-slate-500">
+          <p className="text-xs leading-5 text-slate-500 sm:max-w-[22rem]">
             Freighter permission flow only. No fake addresses or mock wallet
             state.
           </p>
-        </div>
+        </motion.div>
       </CardContent>
     </Card>
   );

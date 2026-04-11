@@ -30,28 +30,27 @@ function QuickStartCard() {
 
   return (
     <Card className="overflow-hidden">
-      <CardContent className="relative flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+      <CardContent className="relative flex flex-col gap-6 p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between xl:p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.1),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.02),transparent_45%)]" />
         <div className="relative max-w-2xl space-y-4">
           <Badge tone="default" className="w-fit">
             <Sparkles className="mr-2 h-3.5 w-3.5" />
-            Beginner-friendly flow
+            Clean guided workflow
           </Badge>
           <div className="space-y-3">
-            <h1 className="max-w-2xl text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Connect first, then use the vault actions in order.
+            <h1 className="max-w-2xl text-2xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Wallet first. Then vault actions. Then live tracking.
             </h1>
-            <p className="max-w-2xl text-sm leading-7 text-slate-400 sm:text-base lg:text-lg">
-              The layout is now organized around the actual working path: wallet
-              connection at the top, simple actions in the middle, and live
-              status plus activity below.
+            <p className="max-w-2xl text-sm leading-6 text-slate-400 sm:text-base lg:text-lg">
+              Everything important is now arranged in execution order so users
+              do not get lost: connect, execute, and verify.
             </p>
           </div>
         </div>
 
-        <div className="relative grid gap-3 sm:grid-cols-3 lg:w-[34rem]">
+        <div className="relative grid gap-3 sm:grid-cols-3 lg:w-[35rem]">
           {steps.map(({ title, description, icon: Icon }, index) => (
-            <div key={title} className="surface-group space-y-3 p-4">
+            <div key={title} className="surface-group space-y-3 p-4 sm:p-4.5">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/15 bg-cyan-300/10 text-cyan-100">
                   <Icon className="h-4.5 w-4.5" />
@@ -103,7 +102,7 @@ export function DashboardGrid() {
         </div>
       </div>
 
-      <div id="activity">
+      <div id="activity" className="pb-2">
         <LiveActivityFeed />
       </div>
     </section>

@@ -33,12 +33,22 @@ export default {
         },
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(125, 211, 252, 0.08), 0 24px 80px rgba(2, 6, 23, 0.55)",
+        glow: "0 0 0 1px rgba(125, 211, 252, 0.12), 0 24px 80px rgba(2, 6, 23, 0.65), 0 0 30px rgba(34, 211, 238, 0.1)",
         soft: "0 12px 40px rgba(15, 23, 42, 0.35)",
+        "glow-cyan":
+          "0 0 20px rgba(34, 211, 238, 0.25), 0 0 40px rgba(34, 211, 238, 0.1)",
+        "glow-success":
+          "0 0 20px rgba(34, 197, 94, 0.2), 0 0 40px rgba(34, 197, 94, 0.08)",
+        "glow-error":
+          "0 0 20px rgba(229, 62, 62, 0.2), 0 0 40px rgba(229, 62, 62, 0.08)",
       },
       backgroundImage: {
         "aurora-radial":
-          "radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 32%), radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 28%), radial-gradient(circle at bottom, rgba(14, 116, 144, 0.22), transparent 34%)",
+          "radial-gradient(circle at top left, rgba(16, 185, 229, 0.2), transparent 35%), radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 30%), radial-gradient(circle at bottom, rgba(139, 92, 246, 0.14), transparent 35%)",
+        "gradient-cyan-blue":
+          "linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(59, 130, 246, 0.08) 100%)",
+        "gradient-success-glow":
+          "linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%)",
       },
       keyframes: {
         shimmer: {

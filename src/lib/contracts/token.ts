@@ -15,6 +15,9 @@ const DEFAULT_EXPLORER_TX_BASE_URL =
   "https://stellar.expert/explorer/testnet/tx";
 const DEFAULT_TX_FEE = "100000";
 const CONTRACT_LOG_PREFIX = "[StellarVaultOps]";
+const SIGN_TIMEOUT_MS = 45_000;
+const SEND_TIMEOUT_MS = 30_000;
+const CONFIRM_TIMEOUT_MS = 180_000;
 
 function readEnvValue(...keys: string[]) {
   const env = import.meta.env as ImportMetaEnv &
@@ -78,15 +81,37 @@ export async function getTransactionStatus(
   const resolved = config || getStellarClientConfig();
   const server = new rpc.Server(resolved.rpcUrl);
   console.info(`${CONTRACT_LOG_PREFIX} tx.status.request`, { hash });
-  const tx = await server.getTransaction(hash);
-  const status = (tx as { status?: string }).status;
-  console.info(`${CONTRACT_LOG_PREFIX} tx.status.response`, { hash, status });
+  try {
+    const tx = await server.getTransaction(hash);
+    const status = (tx as { status?: string }).status;
+    console.info(`${CONTRACT_LOG_PREFIX} tx.status.response`, { hash, status });
 
-  if (status === "SUCCESS" || status === "FAILED" || status === "NOT_FOUND") {
-    return status;
+    if (status === "SUCCESS" || status === "FAILED" || status === "NOT_FOUND") {
+      return status;
+    }
+
+    return "PENDING";
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    const lowered = message.toLowerCase();
+    const isTransientStatusError =
+      lowered.includes("bad union switch") ||
+      lowered.includes("xdr") ||
+      lowered.includes("parse") ||
+      lowered.includes("not found") ||
+      lowered.includes("404") ||
+      lowered.includes("unknown");
+
+    if (isTransientStatusError) {
+      console.warn(`${CONTRACT_LOG_PREFIX} tx.status.transient_error`, {
+        hash,
+        message,
+      });
+      return "PENDING";
+    }
+
+    throw error;
   }
-
-  return "PENDING";
 }
 
 export function getTokenContractConfig(): TokenContractConfig {
@@ -163,6 +188,28 @@ async function sleep(ms: number) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  timeoutMessage: string,
+): Promise<T> {
+  let timeoutHandle: ReturnType<typeof setTimeout> | null = null;
+
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutHandle = setTimeout(() => {
+      reject(new Error(timeoutMessage));
+    }, timeoutMs);
+  });
+
+  try {
+    return await Promise.race([promise, timeoutPromise]);
+  } finally {
+    if (timeoutHandle) {
+      clearTimeout(timeoutHandle);
+    }
+  }
+}
+
 async function getTransactionStatusSafe(
   server: rpc.Server,
   hash: string,
@@ -233,7 +280,7 @@ async function getTransactionStatusSafe(
 async function waitForSuccess(
   server: rpc.Server,
   hash: string,
-  timeoutMs = 300_000, // 5 minutes for testnet
+  timeoutMs = CONFIRM_TIMEOUT_MS,
 ): Promise<void> {
   const startedAt = Date.now();
   let lastLoggedTime = startedAt;
@@ -387,12 +434,16 @@ export async function invokeContractWrite(
   const simulation = await server.simulateTransaction(tx);
   const simulationError = extractSimulationError(simulation);
   if (simulationError) {
+    const friendlySimulationError =
+      method === "distribute" && simulationError.includes("Error(Contract, #4)")
+        ? "Distribute failed: vault has insufficient token balance. Deposit first, then distribute."
+        : simulationError;
     console.error(`${CONTRACT_LOG_PREFIX} contract.write.simulation_error`, {
       contractId,
       method,
-      simulationError,
+      simulationError: friendlySimulationError,
     });
-    throw new Error(simulationError);
+    throw new Error(friendlySimulationError);
   }
 
   console.info(`${CONTRACT_LOG_PREFIX} contract.write.simulation_ok`, {
@@ -407,10 +458,14 @@ export async function invokeContractWrite(
     method,
     walletAddress,
   });
-  const signed = await signTransaction(prepared.toXDR(), {
-    networkPassphrase: config.networkPassphrase,
-    address: walletAddress,
-  });
+  const signed = await withTimeout(
+    signTransaction(prepared.toXDR(), {
+      networkPassphrase: config.networkPassphrase,
+      address: walletAddress,
+    }),
+    SIGN_TIMEOUT_MS,
+    "Wallet signature timed out. Please approve in Freighter and retry.",
+  );
 
   if (signed.error || !signed.signedTxXdr) {
     console.error(`${CONTRACT_LOG_PREFIX} wallet.sign.error`, {
@@ -436,7 +491,11 @@ export async function invokeContractWrite(
     method,
     walletAddress,
   });
-  const sent = await server.sendTransaction(signedTx);
+  const sent = await withTimeout(
+    server.sendTransaction(signedTx),
+    SEND_TIMEOUT_MS,
+    "Transaction submission timed out. Please retry.",
+  );
   const hash = (sent as { hash?: string }).hash;
   if (!hash) {
     console.error(`${CONTRACT_LOG_PREFIX} tx.send.error`, {
@@ -453,13 +512,23 @@ export async function invokeContractWrite(
     hash,
   });
 
-  await waitForSuccess(server, hash);
-
-  console.info(`${CONTRACT_LOG_PREFIX} tx.confirmed`, {
-    contractId,
-    method,
-    hash,
-  });
+  // Do not block UX on slow testnet finality; confirm asynchronously.
+  void waitForSuccess(server, hash, CONFIRM_TIMEOUT_MS)
+    .then(() => {
+      console.info(`${CONTRACT_LOG_PREFIX} tx.confirmed`, {
+        contractId,
+        method,
+        hash,
+      });
+    })
+    .catch((error) => {
+      console.warn(`${CONTRACT_LOG_PREFIX} tx.confirmation_delayed_or_failed`, {
+        contractId,
+        method,
+        hash,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    });
 
   return {
     hash,

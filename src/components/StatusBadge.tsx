@@ -33,6 +33,14 @@ export function StatusBadge({ status }: StatusBadgeProps) {
     );
   }
 
+  if (status === "submitted") {
+    return (
+      <Badge tone="muted" className="min-w-[82px] justify-center">
+        Submitted
+      </Badge>
+    );
+  }
+
   return (
     <Badge tone="muted" className="min-w-[82px] justify-center">
       Submitting

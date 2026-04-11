@@ -1,7 +1,12 @@
 import { cacheKeys } from "@/lib/cache/keys";
 import { readCache, subscribeCache, writeCache } from "@/lib/cache/query-cache";
 
-export type ActivityStatus = "submitting" | "pending" | "success" | "failed";
+export type ActivityStatus =
+  | "submitting"
+  | "submitted"
+  | "pending"
+  | "success"
+  | "failed";
 
 export interface ActivityItem {
   id: string;

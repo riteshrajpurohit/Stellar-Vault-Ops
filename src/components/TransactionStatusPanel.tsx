@@ -29,7 +29,7 @@ export function TransactionStatusPanel({
             {state.phase === "submitting"
               ? "Submitting"
               : state.phase === "success"
-                ? "Confirmed"
+                ? "Submitted"
                 : state.phase === "error"
                   ? "Failed"
                   : "Idle"}
@@ -48,7 +48,7 @@ export function TransactionStatusPanel({
           <div className="space-y-3 rounded-2xl border border-emerald-400/20 bg-emerald-400/8 p-4">
             <div className="flex items-center gap-2 text-sm font-medium text-emerald-100">
               <CheckCircle2 className="h-4 w-4" />
-              Transaction confirmed on Stellar Testnet
+              Transaction submitted on Stellar Testnet
             </div>
             {state.hash ? (
               <p className="break-all text-xs text-emerald-100/80">

@@ -47,7 +47,7 @@ export function useTransactionTracker() {
 
         addActivityItem({
           action,
-          status: "pending",
+          status: "submitted",
           hash: result.hash,
           explorerUrl: result.explorerUrl,
           errorMessage: null,

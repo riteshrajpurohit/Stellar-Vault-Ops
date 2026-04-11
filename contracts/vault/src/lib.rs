@@ -138,8 +138,8 @@ impl VaultContract {
             return Err(VaultError::InvalidAmount);
         }
 
-        let admin = read_admin(&e)?;
-        admin.require_auth();
+        // Keep initialization check, but allow any signer to trigger distribution.
+        read_admin(&e)?;
 
         let token_contract = read_token_contract(&e)?;
         let vault_address = e.current_contract_address();

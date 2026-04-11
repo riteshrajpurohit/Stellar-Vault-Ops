@@ -60,7 +60,7 @@ export function useLiveActivityFeed() {
             return;
           }
 
-          upsertActivityByHash(hash, { status: "pending" });
+          upsertActivityByHash(hash, { status: "submitted" });
         }),
       );
 

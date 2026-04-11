@@ -8,8 +8,8 @@ Production-grade Stellar Web3 vault operations dashboard for real token movement
 
 ## 2. Demo Section
 
-- 🔗 Live App: `https://stellar-vault-ops.vercel.app/`
-- 🎥 Demo Video: `https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing`<img width="315" height="680" alt="Screenshot 2026-04-12 at 4 38 05 AM" src="https://github.com/user-attachments/assets/b4668ecf-bef1-49a0-beb7-b0ca78e638df" />
+- 🔗 Live App: https://stellar-vault-ops.vercel.app/
+- 🎥 Demo Video: https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing
 
 
 ## 3. Overview

@@ -35,7 +35,7 @@ describe("useTransactionTracker", () => {
       2,
       expect.objectContaining({
         action: "vault.deposit",
-        status: "pending",
+        status: "submitted",
         hash: "abc123",
       }),
     );

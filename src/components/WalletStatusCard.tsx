@@ -35,14 +35,14 @@ export function WalletStatusCard() {
 
   return (
     <Card className="overflow-hidden">
-      <CardHeader className="pb-4">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/8 bg-white/5 text-cyan-200">
-              <Wallet className="h-5 w-5" />
+      <CardHeader className="pb-3 sm:pb-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/8 bg-white/5 text-cyan-200 sm:h-11 sm:w-11 sm:rounded-xl">
+              <Wallet className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <div>
-              <CardTitle className="text-lg sm:text-xl">
+            <div className="min-w-0">
+              <CardTitle className="text-base sm:text-lg lg:text-xl">
                 1. Connect your wallet
               </CardTitle>
               <CardDescription>
@@ -53,32 +53,41 @@ export function WalletStatusCard() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone={isConnected ? "default" : "muted"}>
+            <Badge
+              tone={isConnected ? "default" : "muted"}
+              className="text-[10px] sm:text-xs"
+            >
               {connectionBadge}
             </Badge>
-            <Badge tone={network?.isTestnet ? "default" : "outline"}>
+            <Badge
+              tone={network?.isTestnet ? "default" : "outline"}
+              className="text-[10px] sm:text-xs"
+            >
               {STELLAR_TESTNET_NETWORK.label}
             </Badge>
-            <Badge tone={isInstalled ? "muted" : "outline"}>
+            <Badge
+              tone={isInstalled ? "muted" : "outline"}
+              className="text-[10px] sm:text-xs"
+            >
               {isInstalled ? "Freighter detected" : "Freighter not installed"}
             </Badge>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4 sm:space-y-5">
         <motion.div
-          className="grid gap-4 rounded-2xl border border-dashed border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.06] to-blue-400/[0.04] p-4 sm:p-5 md:grid-cols-[1.2fr_0.8fr] md:items-center"
+          className="grid gap-3 rounded-xl border border-dashed border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.06] to-blue-400/[0.04] p-3 sm:rounded-2xl sm:p-4 md:p-5 md:grid-cols-[1.2fr_0.8fr] md:items-center"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
         >
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-slate-200">
+            <p className="text-xs font-semibold text-slate-200 sm:text-sm">
               {isConnected ? "Wallet ready" : "Start here"}
             </p>
-            <p className="text-sm leading-6 text-slate-400">
+            <p className="text-xs leading-5 text-slate-400 sm:text-sm sm:leading-6">
               {isConnected
                 ? `Connected as ${formatWalletAddress(address)} on ${formatWalletNetwork(network)}.`
                 : isLoading
@@ -91,13 +100,13 @@ export function WalletStatusCard() {
 
           <div className="flex flex-wrap gap-2 md:justify-end">
             {isConnected ? (
-              <Badge tone="default">
-                <CheckCircle2 className="mr-2 h-3.5 w-3.5" />
+              <Badge tone="default" className="text-[10px] sm:text-xs">
+                <CheckCircle2 className="mr-1 h-3 w-3" />
                 Connected
               </Badge>
             ) : (
-              <Badge tone="outline">
-                <ShieldCheck className="mr-2 h-3.5 w-3.5" />
+              <Badge tone="outline" className="text-[10px] sm:text-xs">
+                <ShieldCheck className="mr-1 h-3 w-3" />
                 Awaiting permission
               </Badge>
             )}

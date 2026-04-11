@@ -70,10 +70,10 @@ export function VaultActionsCard() {
 
   return (
     <Card>
-      <CardHeader className="pb-4">
-        <div className="flex items-center justify-between gap-3">
+      <CardHeader className="pb-3 sm:pb-4">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
           <div>
-            <CardTitle className="text-lg sm:text-xl">
+            <CardTitle className="text-base sm:text-lg lg:text-xl">
               2. Vault actions
             </CardTitle>
             <CardDescription>
@@ -84,18 +84,18 @@ export function VaultActionsCard() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-xl"
+            className="h-8 w-8 rounded-lg shrink-0 sm:h-9 sm:w-9 sm:rounded-xl"
             onClick={() =>
               void Promise.all([token.refresh(), vault.refreshState()])
             }
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-4 sm:space-y-5">
         <motion.div
-          className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"
+          className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -110,55 +110,55 @@ export function VaultActionsCard() {
           }}
         >
           <motion.div
-            className="surface-group p-3.5 surface-group-stagger"
+            className="surface-group p-3 sm:p-3.5 surface-group-stagger"
             variants={{
               hidden: { opacity: 0, y: 12 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
             }}
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 sm:text-xs sm:tracking-[0.2em]">
               Wallet token
             </p>
             {token.isLoading ? (
-              <Skeleton className="mt-2 h-5 w-20" />
+              <Skeleton className="mt-2 h-4 w-16 sm:h-5 sm:w-20" />
             ) : (
-              <p className="mt-1 text-sm font-semibold text-slate-100">
+              <p className="mt-1 text-xs font-semibold text-slate-100 sm:text-sm">
                 {formatBigInt(token.balance)}
               </p>
             )}
           </motion.div>
           <motion.div
-            className="surface-group p-3.5 surface-group-stagger stagger-2"
+            className="surface-group p-3 sm:p-3.5 surface-group-stagger stagger-2"
             variants={{
               hidden: { opacity: 0, y: 12 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
             }}
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 sm:text-xs sm:tracking-[0.2em]">
               Vault token
             </p>
             {vault.isRefreshingState ? (
-              <Skeleton className="mt-2 h-5 w-20" />
+              <Skeleton className="mt-2 h-4 w-16 sm:h-5 sm:w-20" />
             ) : (
-              <p className="mt-1 text-sm font-semibold text-slate-100">
+              <p className="mt-1 text-xs font-semibold text-slate-100 sm:text-sm">
                 {formatBigInt(vault.vaultBalance)}
               </p>
             )}
           </motion.div>
           <motion.div
-            className="surface-group p-3.5 sm:col-span-2 xl:col-span-1 surface-group-stagger stagger-3"
+            className="surface-group p-3 sm:p-3.5 sm:col-span-2 xl:col-span-1 surface-group-stagger stagger-3"
             variants={{
               hidden: { opacity: 0, y: 12 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
             }}
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 sm:text-xs sm:tracking-[0.2em]">
               Distributed
             </p>
             {vault.isRefreshingState ? (
-              <Skeleton className="mt-2 h-5 w-24" />
+              <Skeleton className="mt-2 h-4 w-16 sm:h-5 sm:w-24" />
             ) : (
-              <p className="mt-1 text-sm font-semibold text-slate-100">
+              <p className="mt-1 text-xs font-semibold text-slate-100 sm:text-sm">
                 {formatBigInt(vault.totals?.totalDistributed ?? null)}
               </p>
             )}
@@ -176,8 +176,8 @@ export function VaultActionsCard() {
             ease: [0.34, 1.56, 0.64, 1],
           }}
         >
-          <div className="flex items-center gap-2 text-sm font-medium text-slate-100">
-            <Coins className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-xs font-medium text-slate-100 sm:text-sm">
+            <Coins className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Deposit to vault
           </div>
           <input
@@ -187,7 +187,7 @@ export function VaultActionsCard() {
             className="field-input"
           />
           <Button
-            className={`w-full sm:w-auto transition-all duration-300 ${
+            className={`w-full transition-all duration-300 h-9 text-xs sm:h-10 sm:text-sm ${
               lastSuccessAction === "deposit" &&
               tracker.state.phase === "success"
                 ? "btn-success shadow-glow-success"
@@ -198,7 +198,7 @@ export function VaultActionsCard() {
             disabled={disabled || !depositAmount || vault.isDepositing}
             onClick={() => void submitDeposit()}
           >
-            <Building2 className="h-4 w-4" />
+            <Building2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             {vault.isDepositing ? "Depositing..." : "Deposit"}
           </Button>
         </motion.div>
@@ -214,8 +214,8 @@ export function VaultActionsCard() {
             ease: [0.34, 1.56, 0.64, 1],
           }}
         >
-          <div className="flex items-center gap-2 text-sm font-medium text-slate-100">
-            <Send className="h-4 w-4" />
+          <div className="flex items-center gap-2 text-xs font-medium text-slate-100 sm:text-sm">
+            <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             Distribute from vault
           </div>
           <input
@@ -232,7 +232,7 @@ export function VaultActionsCard() {
           />
           <Button
             variant="secondary"
-            className={`w-full sm:w-auto transition-all duration-300 ${
+            className={`w-full transition-all duration-300 h-9 text-xs sm:h-10 sm:text-sm ${
               lastSuccessAction === "distribute" &&
               tracker.state.phase === "success"
                 ? "btn-success shadow-glow-success"
@@ -248,22 +248,24 @@ export function VaultActionsCard() {
             }
             onClick={() => void submitDistribute()}
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             {vault.isDistributing ? "Distributing..." : "Distribute"}
           </Button>
         </motion.div>
 
         {!vault.canInteract ? (
-          <Badge tone="outline">
+          <Badge tone="outline" className="text-[10px] sm:text-xs">
             Connect a testnet wallet and set vault/token contract IDs in env.
           </Badge>
         ) : null}
 
         {token.error ? (
-          <p className="text-sm text-rose-300">{token.error}</p>
+          <p className="text-xs text-rose-300 sm:text-sm">{token.error}</p>
         ) : null}
         {vault.actionError ? (
-          <p className="text-sm text-rose-300">{vault.actionError}</p>
+          <p className="text-xs text-rose-300 sm:text-sm">
+            {vault.actionError}
+          </p>
         ) : null}
 
         <TransactionStatusPanel state={tracker.state} onClear={tracker.reset} />

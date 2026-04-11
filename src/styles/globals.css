@@ -108,11 +108,11 @@
   }
 
   .surface-group {
-    @apply rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5;
+    @apply rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:rounded-2xl sm:p-4 md:p-5;
   }
 
   .field-input {
-    @apply h-11 w-full rounded-xl border border-white/10 bg-slate-900/80 px-3.5 text-sm text-slate-100 outline-none transition-colors focus:border-cyan-300/45;
+    @apply h-10 w-full rounded-lg border border-white/10 bg-slate-900/80 px-3 text-xs text-slate-100 outline-none transition-colors focus:border-cyan-300/45 sm:h-11 sm:rounded-xl sm:px-3.5 sm:text-sm;
   }
 
   .nav-pill {
@@ -256,6 +256,87 @@
       text-shadow:
         0 0 20px rgba(22, 165, 220, 0.6),
         0 0 30px rgba(22, 165, 220, 0.4);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Navbar responsive styles */
+  header {
+    animation: slideInDown 0.5s ease-out;
+  }
+
+  /* Smooth scrollbar for desktop navigation */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile menu animation optimizations */
+  @media (max-width: 768px) {
+    header {
+      z-index: 40;
+    }
+
+    main {
+      z-index: 30;
+    }
+  }
+
+  /* Navbar link hover effects */
+  .nav-link-hover {
+    @apply relative transition-all duration-300;
+  }
+
+  .nav-link-hover::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #06b6d4, #0891b2);
+    transition: width 0.3s ease-out;
+  }
+
+  .nav-link-hover:hover::after {
+    width: 100%;
+  }
+
+  /* Smooth transitions for mobile menu */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    header {
+      animation: none;
     }
   }
 }

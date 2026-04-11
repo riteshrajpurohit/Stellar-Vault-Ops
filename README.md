@@ -9,7 +9,8 @@ Production-grade Stellar Web3 vault operations dashboard for real token movement
 ## 2. Demo Section
 
 - 🔗 Live App: `https://stellar-vault-ops.vercel.app/`
-- 🎥 Demo Video: `<DEMO_VIDEO_URL>`
+- 🎥 Demo Video: `https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing`<img width="315" height="680" alt="Screenshot 2026-04-12 at 4 38 05 AM" src="https://github.com/user-attachments/assets/b4668ecf-bef1-49a0-beb7-b0ca78e638df" />
+
 
 ## 3. Overview
 
@@ -184,15 +185,33 @@ The UI follows a mobile-first responsive approach:
 - adaptive typography and spacing across breakpoints
 
 Screenshot placeholder:
+<img width="314" height="677" alt="Screenshot 2026-04-12 at 4 38 25 AM" src="https://github.com/user-attachments/assets/bb046d63-593c-4558-b5eb-d11874c5e16a" />
 
-- `<ADD_MOBILE_SCREENSHOT_PATH>`
 
 ## 16. Screenshots
 
-- Dashboard: `<ADD_DASHBOARD_SCREENSHOT_PATH>`
-- Mobile View: `<ADD_MOBILE_VIEW_SCREENSHOT_PATH>`
-- Transaction Success: `<ADD_TX_SUCCESS_SCREENSHOT_PATH>`
-- CI/CD Pipeline: `<ADD_CICD_SCREENSHOT_PATH>`
+### Dashboard: 
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 14 28 AM" src="https://github.com/user-attachments/assets/0208e560-4050-4856-aff5-eabb06fa686e" />
+
+### Wallet Connected:
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 14 55 AM" src="https://github.com/user-attachments/assets/2b42cc2e-a2ad-4250-acd3-b8dbbfecb775" />
+
+### Mobile View:
+<img width="314" height="677" alt="Screenshot 2026-04-12 at 4 38 25 AM" src="https://github.com/user-attachments/assets/c1d2cbc2-0989-4ca2-b034-5c27c1ee6fdf" />
+
+<img width="307" height="671" alt="Screenshot 2026-04-12 at 4 38 53 AM" src="https://github.com/user-attachments/assets/e6555702-3757-43bc-b02a-65ea621cc4c4" />
+
+
+
+### Transaction Success:
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 19 20 AM" src="https://github.com/user-attachments/assets/c2785894-f0a3-4f05-a304-66fc9c164b10" />
+
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 20 10 AM" src="https://github.com/user-attachments/assets/81cfc500-2228-4543-aa6d-7e294d826075" />
+
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 20 18 AM" src="https://github.com/user-attachments/assets/dfda6fe4-a316-450f-8783-b628ef49ad60" />
+
+### CI/CD Pipeline: 
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/9abb268d-4766-4760-aa6b-809a2eb092f5" />
 
 ## 17. Project Structure
 

@@ -42,21 +42,15 @@ This guide walks you through deploying the Stellar Vault Ops application to Verc
    - Build command: `npm run build` (auto-detected)
    - Output directory: `dist` (auto-detected)
 
-4. **Set Environment Variables**
+4. **Deploy to Production**
 
-   ```bash
-   vercel env add VITE_TOKEN_CONTRACT_ID
-   vercel env add VITE_VAULT_CONTRACT_ID
-   vercel env add VITE_VAULT_ADMIN_ADDRESS
-   vercel env add VITE_STELLAR_RPC_URL
-   ```
-
-5. **Deploy to Production**
    ```bash
    vercel --prod
    ```
 
-### Option 2: Using Vercel Web Dashboard
+   **Note:** Environment variables are automatically configured in `vercel.json` with hardcoded testnet values. No manual environment variable setup needed for initial deployment!
+
+### Option 2: Using Vercel Web Dashboard (Easiest)
 
 1. **Push code to Git**
 
@@ -72,13 +66,15 @@ This guide walks you through deploying the Stellar Vault Ops application to Verc
    - Import your Git repository
    - Vercel auto-detects the Vite configuration
 
-3. **Configure Environment Variables**
+3. **Configure Environment Variables (Optional)**
+
+   Environment variables are pre-configured in `vercel.json` with defaults. To override:
    - Project Settings → Environment Variables
-   - Add the following:
-     - `VITE_TOKEN_CONTRACT_ID`: `CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP`
-     - `VITE_VAULT_CONTRACT_ID`: `CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL`
-     - `VITE_VAULT_ADMIN_ADDRESS`: `GDL4DWHM3JL7YNPIXC3JWB7EJ7DBO6PZERQFBQN6MU2IRXX3AMTBP55G`
-     - `VITE_STELLAR_RPC_URL`: `https://soroban-testnet.stellar.org`
+   - Add/override as needed for production:
+     - `VITE_TOKEN_CONTRACT_ID`: Your token contract
+     - `VITE_VAULT_CONTRACT_ID`: Your vault contract
+     - `VITE_VAULT_ADMIN_ADDRESS`: Your admin address
+     - `VITE_STELLAR_RPC_URL`: Your RPC endpoint
 
 4. **Deploy**
    - Click "Deploy"
@@ -88,13 +84,16 @@ This guide walks you through deploying the Stellar Vault Ops application to Verc
 
 The app uses the following environment variables (Vite requires `VITE_` prefix):
 
-| Variable                          | Value                                 |
-| --------------------------------- | ------------------------------------- |
-| `VITE_TOKEN_CONTRACT_ID`          | Token contract address on Stellar     |
-| `VITE_VAULT_CONTRACT_ID`          | Vault contract address on Stellar     |
-| `VITE_VAULT_ADMIN_ADDRESS`        | Admin wallet address (reference only) |
-| `VITE_STELLAR_RPC_URL`            | Stellar Soroban RPC endpoint          |
-| `VITE_STELLAR_NETWORK_PASSPHRASE` | `Test SDF Network ; September 2015`   |
+| Variable | Default Value | Description |
+|----------|---|---|
+| `VITE_TOKEN_CONTRACT_ID` | `CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP` | Token contract on testnet |
+| `VITE_VAULT_CONTRACT_ID` | `CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL` | Vault contract on testnet |
+| `VITE_VAULT_ADMIN_ADDRESS` | `GDL4DWHM3JL7YNPIXC3JWB7EJ7DBO6PZERQFBQN6MU2IRXX3AMTBP55G` | Admin wallet (reference) |
+| `VITE_STELLAR_RPC_URL` | `https://soroban-testnet.stellar.org` | Stellar Soroban RPC |
+| `VITE_STELLAR_NETWORK_PASSPHRASE` | `Test SDF Network ; September 2015` | Testnet passphrase |
+| `VITE_STELLAR_EXPLORER_TX_BASE_URL` | `https://stellar.expert/explorer/testnet/tx` | Explorer URL |
+
+**✅ All values are pre-configured in `vercel.json` and automatically applied during build.** No manual environment variable setup required unless you need to override for production.
 
 ## Vercel Configuration
 
@@ -143,28 +142,43 @@ The `vercel.json` file includes:
 
 ## Troubleshooting
 
+### Build Fails with "references Secret which does not exist"
+
+**Error:** `Environment Variable "VITE_STELLAR_RPC_URL" references Secret "stellar_rpc_url", which does not exist.`
+
+**Solution:** This error was fixed! All environment variables are now hardcoded in `vercel.json` with valid testnet defaults. Simply redeploy - no manual Vercel Secrets setup needed.
+
+- Verify `vercel.json` has the complete `env` section
+- Redeploy: `vercel --prod`
+- If still failing, clear Vercel cache: Go to Project Settings → Git Integration → Redeploy
+
 ### Build Fails
 
 - Check logs: `vercel logs --prod`
 - Verify TypeScript: `npm run build` locally
 - Check ESLint: `npm run lint`
+- Check for missing dependencies: `npm ci`
 
-### Environment Variables Not Applied
+### Environment Variables Not Picked Up
 
-- Redeploy after adding env vars: `vercel --prod`
-- Verify variable names in Project Settings
+- Ensure `vercel.json` is committed to git
+- Redeploy after any `vercel.json` changes: `vercel --prod`
+- Clear Vercel cache and redeploy if needed
+- Check Vercel Project Settings → Environment for any conflicting overrides
 
 ### Mobile Menu Not Working
 
 - Verify Framer Motion animation libraries loaded
 - Check browser console for errors
 - Test in incognito mode
+- Hard refresh: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
 
 ### Slow Performance
 
 - Run Lighthouse at https://web.dev
 - Check gzip compression enabled
 - Verify CDN cache status
+- Check bundle size: `npm run build` and review console output
 
 ## Rollback Previous Deployment
 

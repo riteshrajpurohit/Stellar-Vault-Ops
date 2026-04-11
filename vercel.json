@@ -3,10 +3,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "env": {
-    "VITE_STELLAR_RPC_URL": "@stellar_rpc_url",
-    "VITE_TOKEN_CONTRACT_ID": "@token_contract_id",
-    "VITE_VAULT_CONTRACT_ID": "@vault_contract_id",
-    "VITE_ADMIN_ADDRESS": "@admin_address"
+    "VITE_STELLAR_RPC_URL": "https://soroban-testnet.stellar.org",
+    "VITE_TOKEN_CONTRACT_ID": "CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP",
+    "VITE_VAULT_CONTRACT_ID": "CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL",
+    "VITE_VAULT_ADMIN_ADDRESS": "GDL4DWHM3JL7YNPIXC3JWB7EJ7DBO6PZERQFBQN6MU2IRXX3AMTBP55G",
+    "VITE_STELLAR_NETWORK_PASSPHRASE": "Test SDF Network ; September 2015",
+    "VITE_STELLAR_EXPLORER_TX_BASE_URL": "https://stellar.expert/explorer/testnet/tx"
   },
   "headers": [
     {

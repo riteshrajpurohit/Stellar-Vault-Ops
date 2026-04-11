@@ -144,6 +144,6 @@ export async function distributeFromVault(params: {
 export function hasVaultContractConfig() {
   return Boolean(
     readEnvValue("VITE_VAULT_CONTRACT_ID", "NEXT_PUBLIC_VAULT_CONTRACT_ID") ||
-      DEFAULT_VAULT_CONTRACT_ID,
+    DEFAULT_VAULT_CONTRACT_ID,
   );
 }

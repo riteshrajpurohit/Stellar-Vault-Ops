@@ -130,7 +130,7 @@ export function getTokenContractConfig(): TokenContractConfig {
 export function hasTokenContractConfig() {
   return Boolean(
     readEnvValue("VITE_TOKEN_CONTRACT_ID", "NEXT_PUBLIC_TOKEN_CONTRACT_ID") ||
-      DEFAULT_TOKEN_CONTRACT_ID,
+    DEFAULT_TOKEN_CONTRACT_ID,
   );
 }
 

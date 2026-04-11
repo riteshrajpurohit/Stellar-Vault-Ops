@@ -84,10 +84,17 @@ export function useVaultActions() {
     setActionError(null);
 
     try {
+      console.info("[VaultState] Fetching totals and balance...");
       const [nextTotals, nextVaultBalance] = await Promise.all([
         getVaultTotals(wallet.address),
         getVaultTokenBalance(wallet.address),
       ]);
+
+      console.info("[VaultState] Vault state fetched:", {
+        totalDeposited: nextTotals.totalDeposited.toString(),
+        totalDistributed: nextTotals.totalDistributed.toString(),
+        vaultBalance: nextVaultBalance.toString(),
+      });
 
       setTotals(nextTotals);
       setVaultBalance(nextVaultBalance);
@@ -96,9 +103,12 @@ export function useVaultActions() {
         vaultBalance: nextVaultBalance,
       });
     } catch (error) {
-      setActionError(
-        error instanceof Error ? error.message : "Unable to read vault state.",
-      );
+      const errorMsg =
+        error instanceof Error ? error.message : "Unable to read vault state.";
+      console.error("[VaultState] Failed to fetch vault state:", {
+        error: errorMsg,
+      });
+      setActionError(errorMsg);
     } finally {
       setIsRefreshingState(false);
     }
@@ -117,18 +127,34 @@ export function useVaultActions() {
       setIsDepositing(true);
       setActionError(null);
       try {
+        console.info("[VaultDeposit] Starting deposit...", { amount });
         const result = await depositToVault({
           from: wallet.address,
           amount,
         });
 
+        console.info("[VaultDeposit] Transaction confirmed", {
+          hash: result.hash,
+        });
+
+        // Invalidate all cache entries
         invalidateCache(cacheKeys.tokenBalance(wallet.address));
         invalidateCache(cacheKeys.vaultState(wallet.address));
+
+        // Wait a bit for ledger to settle
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        console.info("[VaultDeposit] Refreshing vault state...");
         await refreshState();
+
+        console.info("[VaultDeposit] Deposit completed successfully");
         return result;
       } catch (error) {
         const message =
           error instanceof Error ? error.message : "Vault deposit failed.";
+        console.error("[VaultDeposit] Deposit failed:", {
+          error: message,
+        });
         setActionError(message);
         throw error;
       } finally {
@@ -147,19 +173,37 @@ export function useVaultActions() {
       setIsDistributing(true);
       setActionError(null);
       try {
+        console.info("[VaultDistribute] Starting distribute...", {
+          recipient,
+          amount,
+        });
         const result = await distributeFromVault({
           signerAddress: wallet.address,
           recipient,
           amount,
         });
 
+        console.info("[VaultDistribute] Transaction confirmed", {
+          hash: result.hash,
+        });
+
         invalidateCache(cacheKeys.tokenBalance(wallet.address));
         invalidateCache(cacheKeys.vaultState(wallet.address));
+
+        // Wait a bit for ledger to settle
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        console.info("[VaultDistribute] Refreshing vault state...");
         await refreshState();
+
+        console.info("[VaultDistribute] Distribute completed successfully");
         return result;
       } catch (error) {
         const message =
           error instanceof Error ? error.message : "Vault distribute failed.";
+        console.error("[VaultDistribute] Distribute failed:", {
+          error: message,
+        });
         setActionError(message);
         throw error;
       } finally {

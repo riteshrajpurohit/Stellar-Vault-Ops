@@ -168,8 +168,28 @@ async function getTransactionStatusSafe(
   hash: string,
 ): Promise<string | null> {
   try {
-    const tx = await server.getTransaction(hash);
-    return (tx as { status?: string }).status || null;
+    const fullTx = await server.getTransaction(hash);
+    console.debug(`${CONTRACT_LOG_PREFIX} transaction.raw_response`, {
+      hash,
+      fullTx,
+    });
+
+    // Get status from response
+    const status = (fullTx as { status?: string }).status;
+    if (!status) {
+      console.warn(`${CONTRACT_LOG_PREFIX} transaction.status_missing`, {
+        hash,
+        keys: Object.keys(fullTx || {}),
+      });
+      return null;
+    }
+
+    console.info(`${CONTRACT_LOG_PREFIX} transaction.status_update`, {
+      hash,
+      status,
+    });
+
+    return status;
   } catch (error) {
     // If we get a parsing error, the tx is still pending
     const isParsingError =
@@ -179,11 +199,27 @@ async function getTransactionStatusSafe(
         error.message.includes("parse"));
 
     if (isParsingError) {
+      console.warn(`${CONTRACT_LOG_PREFIX} transaction.parsing_error_pending`, {
+        hash,
+        error: error instanceof Error ? error.message : "Unknown",
+      });
       return null; // Return null to indicate pending
     }
 
     // If we get a NOT_FOUND or other errors, return null (treat as pending)
     if (error instanceof Error) {
+      const errorMsg = error.message.toLowerCase();
+      if (
+        errorMsg.includes("not found") ||
+        errorMsg.includes("404") ||
+        errorMsg.includes("unknown")
+      ) {
+        console.debug(`${CONTRACT_LOG_PREFIX} transaction.not_found_yet`, {
+          hash,
+        });
+        return null; // Not indexed yet, keep polling
+      }
+
       console.warn(`${CONTRACT_LOG_PREFIX} transaction.query_warning`, {
         hash,
         error: error.message,

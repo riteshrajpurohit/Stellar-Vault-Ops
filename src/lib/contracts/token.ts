@@ -145,6 +145,7 @@ function extractSimulationError(simulation: unknown) {
   const maybe = simulation as {
     error?: string;
     result?: unknown;
+    events?: unknown[];
   };
 
   if (maybe.error) {
@@ -152,7 +153,7 @@ function extractSimulationError(simulation: unknown) {
   }
 
   if (!maybe.result) {
-    return "Simulation produced no result.";
+    return "Simulation produced no result. Your wallet may have insufficient balance or permissions.";
   }
 
   return null;
@@ -162,29 +163,77 @@ async function sleep(ms: number) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function getTransactionStatusSafe(
+  server: rpc.Server,
+  hash: string,
+): Promise<string | null> {
+  try {
+    const tx = await server.getTransaction(hash);
+    return (tx as { status?: string }).status || null;
+  } catch (error) {
+    // If we get a parsing error, the tx is still pending
+    const isParsingError =
+      error instanceof Error &&
+      (error.message.includes("Bad union switch") ||
+        error.message.includes("XDR") ||
+        error.message.includes("parse"));
+
+    if (isParsingError) {
+      return null; // Return null to indicate pending
+    }
+
+    throw error;
+  }
+}
+
 async function waitForSuccess(
   server: rpc.Server,
   hash: string,
   timeoutMs = 60_000,
 ): Promise<void> {
   const startedAt = Date.now();
+  let lastLoggedTime = startedAt;
+  const pollInterval = 2000;
 
   while (Date.now() - startedAt < timeoutMs) {
-    const tx = await server.getTransaction(hash);
-    const status = (tx as { status?: string }).status;
+    const status = await getTransactionStatusSafe(server, hash);
+
+    // Log progress every 10 seconds
+    if (Date.now() - lastLoggedTime > 10000) {
+      console.info(`${CONTRACT_LOG_PREFIX} transaction.still_waiting`, {
+        hash,
+        status,
+        elapsed: Date.now() - startedAt,
+      });
+      lastLoggedTime = Date.now();
+    }
 
     if (status === "SUCCESS") {
+      console.info(`${CONTRACT_LOG_PREFIX} transaction.confirmed`, {
+        hash,
+        status,
+        elapsed: Date.now() - startedAt,
+      });
       return;
     }
 
     if (status === "FAILED") {
-      throw new Error("Transaction failed on-chain.");
+      console.error(`${CONTRACT_LOG_PREFIX} transaction.failed_on_chain`, {
+        hash,
+        status,
+      });
+      throw new Error(
+        "Transaction was rejected on-chain. Check the explorer for details.",
+      );
     }
 
-    await sleep(1200);
+    // Status is PENDING or NOT_FOUND, continue polling
+    await sleep(pollInterval);
   }
 
-  throw new Error("Timed out waiting for transaction confirmation.");
+  throw new Error(
+    `Transaction confirmation timed out after ${(timeoutMs / 1000).toFixed(0)}s. The transaction may still succeed on-chain.`,
+  );
 }
 
 export async function invokeContractRead(

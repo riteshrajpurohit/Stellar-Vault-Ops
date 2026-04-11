@@ -32,7 +32,9 @@ export function VaultActionsCard() {
   const [depositAmount, setDepositAmount] = useState("");
   const [distributeTo, setDistributeTo] = useState("");
   const [distributeAmount, setDistributeAmount] = useState("");
-  const [lastSuccessAction, setLastSuccessAction] = useState<string | null>(null);
+  const [lastSuccessAction, setLastSuccessAction] = useState<string | null>(
+    null,
+  );
 
   const submitDeposit = async () => {
     try {
@@ -92,7 +94,7 @@ export function VaultActionsCard() {
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
-        <motion.div 
+        <motion.div
           className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3"
           initial="hidden"
           whileInView="visible"
@@ -107,7 +109,7 @@ export function VaultActionsCard() {
             },
           }}
         >
-          <motion.div 
+          <motion.div
             className="surface-group p-3.5 surface-group-stagger"
             variants={{
               hidden: { opacity: 0, y: 12 },
@@ -125,7 +127,7 @@ export function VaultActionsCard() {
               </p>
             )}
           </motion.div>
-          <motion.div 
+          <motion.div
             className="surface-group p-3.5 surface-group-stagger stagger-2"
             variants={{
               hidden: { opacity: 0, y: 12 },
@@ -143,7 +145,7 @@ export function VaultActionsCard() {
               </p>
             )}
           </motion.div>
-          <motion.div 
+          <motion.div
             className="surface-group p-3.5 sm:col-span-2 xl:col-span-1 surface-group-stagger stagger-3"
             variants={{
               hidden: { opacity: 0, y: 12 },
@@ -163,12 +165,16 @@ export function VaultActionsCard() {
           </motion.div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="surface-group space-y-3"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+          transition={{
+            duration: 0.6,
+            delay: 0.3,
+            ease: [0.34, 1.56, 0.64, 1],
+          }}
         >
           <div className="flex items-center gap-2 text-sm font-medium text-slate-100">
             <Coins className="h-4 w-4" />
@@ -182,7 +188,8 @@ export function VaultActionsCard() {
           />
           <Button
             className={`w-full sm:w-auto transition-all duration-300 ${
-              lastSuccessAction === "deposit" && tracker.state.phase === "success"
+              lastSuccessAction === "deposit" &&
+              tracker.state.phase === "success"
                 ? "btn-success shadow-glow-success"
                 : tracker.state.phase === "error"
                   ? "btn-error shadow-glow-error"
@@ -196,12 +203,16 @@ export function VaultActionsCard() {
           </Button>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="surface-group space-y-3"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+          transition={{
+            duration: 0.6,
+            delay: 0.4,
+            ease: [0.34, 1.56, 0.64, 1],
+          }}
         >
           <div className="flex items-center gap-2 text-sm font-medium text-slate-100">
             <Send className="h-4 w-4" />
@@ -222,7 +233,8 @@ export function VaultActionsCard() {
           <Button
             variant="secondary"
             className={`w-full sm:w-auto transition-all duration-300 ${
-              lastSuccessAction === "distribute" && tracker.state.phase === "success"
+              lastSuccessAction === "distribute" &&
+              tracker.state.phase === "success"
                 ? "btn-success shadow-glow-success"
                 : tracker.state.phase === "error"
                   ? "btn-error shadow-glow-error"

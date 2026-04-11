@@ -182,58 +182,93 @@ async function getTransactionStatusSafe(
       return null; // Return null to indicate pending
     }
 
-    throw error;
+    // If we get a NOT_FOUND or other errors, return null (treat as pending)
+    if (error instanceof Error) {
+      console.warn(`${CONTRACT_LOG_PREFIX} transaction.query_warning`, {
+        hash,
+        error: error.message,
+      });
+    }
+
+    return null; // Return null to continue polling
   }
 }
 
 async function waitForSuccess(
   server: rpc.Server,
   hash: string,
-  timeoutMs = 60_000,
+  timeoutMs = 300_000, // 5 minutes for testnet
 ): Promise<void> {
   const startedAt = Date.now();
   let lastLoggedTime = startedAt;
-  const pollInterval = 2000;
+  let notFoundCount = 0;
+  const maxNotFoundBeforeLongWait = 3; // Allow 3 NOT_FOUND before longer waits
+  let pollInterval = 1000; // Start with 1 second
 
   while (Date.now() - startedAt < timeoutMs) {
-    const status = await getTransactionStatusSafe(server, hash);
+    try {
+      const status = await getTransactionStatusSafe(server, hash);
 
-    // Log progress every 10 seconds
-    if (Date.now() - lastLoggedTime > 10000) {
-      console.info(`${CONTRACT_LOG_PREFIX} transaction.still_waiting`, {
+      // Log progress every 15 seconds
+      if (Date.now() - lastLoggedTime > 15000) {
+        console.info(`${CONTRACT_LOG_PREFIX} transaction.still_waiting`, {
+          hash,
+          status,
+          elapsed: Math.round((Date.now() - startedAt) / 1000),
+          notFoundCount,
+        });
+        lastLoggedTime = Date.now();
+      }
+
+      if (status === "SUCCESS") {
+        console.info(`${CONTRACT_LOG_PREFIX} transaction.confirmed`, {
+          hash,
+          status,
+          elapsed: Math.round((Date.now() - startedAt) / 1000),
+        });
+        return;
+      }
+
+      if (status === "FAILED") {
+        console.error(`${CONTRACT_LOG_PREFIX} transaction.failed_on_chain`, {
+          hash,
+          status,
+        });
+        throw new Error(
+          "Transaction was rejected on-chain. Check the explorer for details.",
+        );
+      }
+
+      // Status is PENDING or NOT_FOUND
+      if (status === null) {
+        notFoundCount++;
+        // After 3 NOT_FOUND responses, increase poll interval to reduce load
+        if (notFoundCount > maxNotFoundBeforeLongWait) {
+          pollInterval = 2000;
+        }
+      } else if (status !== null) {
+        // Reset counter if we get a valid status
+        notFoundCount = 0;
+      }
+
+      await sleep(pollInterval);
+    } catch (error) {
+      console.error(`${CONTRACT_LOG_PREFIX} transaction.wait_error`, {
         hash,
-        status,
-        elapsed: Date.now() - startedAt,
+        error: error instanceof Error ? error.message : "Unknown error",
+        elapsed: Math.round((Date.now() - startedAt) / 1000),
       });
-      lastLoggedTime = Date.now();
+      throw error;
     }
-
-    if (status === "SUCCESS") {
-      console.info(`${CONTRACT_LOG_PREFIX} transaction.confirmed`, {
-        hash,
-        status,
-        elapsed: Date.now() - startedAt,
-      });
-      return;
-    }
-
-    if (status === "FAILED") {
-      console.error(`${CONTRACT_LOG_PREFIX} transaction.failed_on_chain`, {
-        hash,
-        status,
-      });
-      throw new Error(
-        "Transaction was rejected on-chain. Check the explorer for details.",
-      );
-    }
-
-    // Status is PENDING or NOT_FOUND, continue polling
-    await sleep(pollInterval);
   }
 
-  throw new Error(
-    `Transaction confirmation timed out after ${(timeoutMs / 1000).toFixed(0)}s. The transaction may still succeed on-chain.`,
-  );
+  const elapsedSec = (Date.now() - startedAt) / 1000;
+  const message =
+    elapsedSec > 180
+      ? `Transaction confirmation is taking longer than expected (${elapsedSec.toFixed(0)}s). The transaction may have succeeded. Check the explorer: https://stellar.expert/explorer/testnet/tx/${hash}`
+      : `Transaction confirmation timed out after ${elapsedSec.toFixed(0)}s. The transaction may still succeed on-chain.`;
+
+  throw new Error(message);
 }
 
 export async function invokeContractRead(

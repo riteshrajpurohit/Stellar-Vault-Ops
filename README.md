@@ -159,8 +159,8 @@ GitHub Actions workflow runs on push and pull requests and validates:
 - build
 
 ### CI/CD Status
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/7b54a7cb-0d4c-4fed-89f2-65a0002cf0bf" />
 
-![CI/CD](https://github.com/<OWNER>/<REPO>/actions/workflows/ci.yml/badge.svg)
 
 ## 14. Testing
 

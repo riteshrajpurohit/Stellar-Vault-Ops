@@ -9,7 +9,7 @@ npm-debug.log
 Cargo.lock
 target/
 tests/
-contracts/
+/contracts/
 *.wasm
 .eslintcache
 tsconfig*.tsbuildinfo

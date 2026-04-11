@@ -84,14 +84,14 @@ This guide walks you through deploying the Stellar Vault Ops application to Verc
 
 The app uses the following environment variables (Vite requires `VITE_` prefix):
 
-| Variable | Default Value | Description |
-|----------|---|---|
-| `VITE_TOKEN_CONTRACT_ID` | `CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP` | Token contract on testnet |
-| `VITE_VAULT_CONTRACT_ID` | `CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL` | Vault contract on testnet |
-| `VITE_VAULT_ADMIN_ADDRESS` | `GDL4DWHM3JL7YNPIXC3JWB7EJ7DBO6PZERQFBQN6MU2IRXX3AMTBP55G` | Admin wallet (reference) |
-| `VITE_STELLAR_RPC_URL` | `https://soroban-testnet.stellar.org` | Stellar Soroban RPC |
-| `VITE_STELLAR_NETWORK_PASSPHRASE` | `Test SDF Network ; September 2015` | Testnet passphrase |
-| `VITE_STELLAR_EXPLORER_TX_BASE_URL` | `https://stellar.expert/explorer/testnet/tx` | Explorer URL |
+| Variable                            | Default Value                                              | Description               |
+| ----------------------------------- | ---------------------------------------------------------- | ------------------------- |
+| `VITE_TOKEN_CONTRACT_ID`            | `CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP` | Token contract on testnet |
+| `VITE_VAULT_CONTRACT_ID`            | `CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL` | Vault contract on testnet |
+| `VITE_VAULT_ADMIN_ADDRESS`          | `GDL4DWHM3JL7YNPIXC3JWB7EJ7DBO6PZERQFBQN6MU2IRXX3AMTBP55G` | Admin wallet (reference)  |
+| `VITE_STELLAR_RPC_URL`              | `https://soroban-testnet.stellar.org`                      | Stellar Soroban RPC       |
+| `VITE_STELLAR_NETWORK_PASSPHRASE`   | `Test SDF Network ; September 2015`                        | Testnet passphrase        |
+| `VITE_STELLAR_EXPLORER_TX_BASE_URL` | `https://stellar.expert/explorer/testnet/tx`               | Explorer URL              |
 
 **✅ All values are pre-configured in `vercel.json` and automatically applied during build.** No manual environment variable setup required unless you need to override for production.
 

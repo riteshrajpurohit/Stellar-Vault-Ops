@@ -10,6 +10,9 @@ import {
   type StellarClientConfig,
 } from "@/lib/contracts/token.ts";
 
+const DEFAULT_VAULT_CONTRACT_ID =
+  "CB24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL";
+
 function readEnvValue(...keys: string[]) {
   const env = import.meta.env as ImportMetaEnv &
     Record<string, string | undefined>;
@@ -35,16 +38,9 @@ export interface VaultTotals {
 
 export function getVaultContractConfig(): VaultContractConfig {
   const tokenConfig = getTokenContractConfig();
-  const contractId = readEnvValue(
-    "VITE_VAULT_CONTRACT_ID",
-    "NEXT_PUBLIC_VAULT_CONTRACT_ID",
-  );
-
-  if (!contractId) {
-    throw new Error(
-      "Missing VITE_VAULT_CONTRACT_ID. Set the deployed vault contract ID in your frontend environment.",
-    );
-  }
+  const contractId =
+    readEnvValue("VITE_VAULT_CONTRACT_ID", "NEXT_PUBLIC_VAULT_CONTRACT_ID") ||
+    DEFAULT_VAULT_CONTRACT_ID;
 
   return {
     contractId,
@@ -147,6 +143,7 @@ export async function distributeFromVault(params: {
 
 export function hasVaultContractConfig() {
   return Boolean(
-    readEnvValue("VITE_VAULT_CONTRACT_ID", "NEXT_PUBLIC_VAULT_CONTRACT_ID"),
+    readEnvValue("VITE_VAULT_CONTRACT_ID", "NEXT_PUBLIC_VAULT_CONTRACT_ID") ||
+      DEFAULT_VAULT_CONTRACT_ID,
   );
 }

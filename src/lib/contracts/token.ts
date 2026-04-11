@@ -13,6 +13,8 @@ import { STELLAR_TESTNET_NETWORK } from "@/lib/stellar/network";
 const DEFAULT_RPC_URL = "https://soroban-testnet.stellar.org";
 const DEFAULT_EXPLORER_TX_BASE_URL =
   "https://stellar.expert/explorer/testnet/tx";
+const DEFAULT_TOKEN_CONTRACT_ID =
+  "CDH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP";
 const DEFAULT_TX_FEE = "100000";
 const CONTRACT_LOG_PREFIX = "[StellarVaultOps]";
 const SIGN_TIMEOUT_MS = 45_000;
@@ -115,16 +117,9 @@ export async function getTransactionStatus(
 }
 
 export function getTokenContractConfig(): TokenContractConfig {
-  const contractId = readEnvValue(
-    "VITE_TOKEN_CONTRACT_ID",
-    "NEXT_PUBLIC_TOKEN_CONTRACT_ID",
-  );
-
-  if (!contractId) {
-    throw new Error(
-      "Missing VITE_TOKEN_CONTRACT_ID. Set the deployed token contract ID in your frontend environment.",
-    );
-  }
+  const contractId =
+    readEnvValue("VITE_TOKEN_CONTRACT_ID", "NEXT_PUBLIC_TOKEN_CONTRACT_ID") ||
+    DEFAULT_TOKEN_CONTRACT_ID;
 
   return {
     contractId,
@@ -134,7 +129,8 @@ export function getTokenContractConfig(): TokenContractConfig {
 
 export function hasTokenContractConfig() {
   return Boolean(
-    readEnvValue("VITE_TOKEN_CONTRACT_ID", "NEXT_PUBLIC_TOKEN_CONTRACT_ID"),
+    readEnvValue("VITE_TOKEN_CONTRACT_ID", "NEXT_PUBLIC_TOKEN_CONTRACT_ID") ||
+      DEFAULT_TOKEN_CONTRACT_ID,
   );
 }
 

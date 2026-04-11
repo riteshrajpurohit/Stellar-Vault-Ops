@@ -255,7 +255,7 @@ export function VaultActionsCard() {
 
         {!vault.canInteract ? (
           <Badge tone="outline" className="text-[10px] sm:text-xs">
-            Connect a testnet wallet and set vault/token contract IDs in env.
+            Connect Freighter and switch to Stellar Testnet to enable writes.
           </Badge>
         ) : null}
 

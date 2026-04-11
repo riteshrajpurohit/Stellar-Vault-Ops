@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { WalletStatusCard } from "@/components/WalletStatusCard";
 import { VaultActionsCard } from "@/components/VaultActionsCard";
 import { ConnectWalletButton } from "@/components/ConnectWalletButton";
+import { LiveActivityFeed } from "@/components/LiveActivityFeed";
 
 function QuickStartCard() {
   const steps = [
@@ -87,17 +88,23 @@ function QuickStartCard() {
 
 export function DashboardGrid() {
   return (
-    <section id="overview" className="grid gap-5 sm:gap-6 xl:grid-cols-12">
-      <div className="xl:col-span-12">
+    <section id="overview" className="space-y-6 sm:space-y-8">
+      <div>
         <QuickStartCard />
       </div>
 
-      <div id="wallet" className="xl:col-span-5">
-        <WalletStatusCard />
+      <div className="grid gap-6 xl:grid-cols-12">
+        <div id="wallet" className="xl:col-span-5">
+          <WalletStatusCard />
+        </div>
+
+        <div id="actions" className="xl:col-span-7">
+          <VaultActionsCard />
+        </div>
       </div>
 
-      <div className="xl:col-span-7">
-        <VaultActionsCard />
+      <div id="activity">
+        <LiveActivityFeed />
       </div>
     </section>
   );

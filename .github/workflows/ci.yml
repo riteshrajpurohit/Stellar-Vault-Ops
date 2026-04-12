@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: ["**"]
 
+permissions:
+  contents: read
+
 jobs:
   frontend:
-    name: Lint, Test, Build
+    name: Frontend - Lint, Test, Build
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +35,47 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  smart-contracts:
+    name: Smart Contracts - Format, Lint, Test, Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+          components: rustfmt, clippy
+
+      - name: Cache Cargo registry and build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            . -> target
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Lint contracts
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Run contract tests
+        run: cargo test --workspace --locked
+
+      - name: Build token contract (WASM)
+        run: cargo build -p stellar-vault-token --target wasm32v1-none --release --locked
+
+      - name: Build vault contract (WASM)
+        run: cargo build -p stellar-vault-contract --target wasm32v1-none --release --locked
+
+      - name: Upload contract WASM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: soroban-contract-wasm
+          path: |
+            target/wasm32v1-none/release/stellar_vault_token.wasm
+            target/wasm32v1-none/release/stellar_vault_contract.wasm
+          if-no-files-found: error

@@ -1,8 +1,7 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, IntoVal,
-    Vec,
+    contract, contracterror, contractimpl, contracttype, symbol_short, Address, Env, IntoVal, Vec,
 };
 
 #[contracterror]
@@ -88,12 +87,17 @@ impl VaultContract {
         e.storage()
             .instance()
             .set(&DataKey::TokenContract, &token_contract);
-        e.storage().instance().set(&DataKey::TotalDeposited, &0_i128);
-        e.storage().instance().set(&DataKey::TotalDistributed, &0_i128);
+        e.storage()
+            .instance()
+            .set(&DataKey::TotalDeposited, &0_i128);
+        e.storage()
+            .instance()
+            .set(&DataKey::TotalDistributed, &0_i128);
 
         Ok(())
     }
 
+    #[allow(deprecated)]
     pub fn deposit(e: Env, from: Address, amount: i128) -> Result<(), VaultError> {
         if amount <= 0 {
             return Err(VaultError::InvalidAmount);
@@ -133,6 +137,7 @@ impl VaultContract {
         Ok(())
     }
 
+    #[allow(deprecated)]
     pub fn distribute(e: Env, to: Address, amount: i128) -> Result<(), VaultError> {
         if amount <= 0 {
             return Err(VaultError::InvalidAmount);
@@ -229,9 +234,7 @@ mod test {
         let vault = VaultContractClient::new(&e, &vault_id);
 
         e.mock_all_auths();
-        vault
-            .initialize(&admin, &token_id)
-            .expect("initialize should succeed");
+        vault.initialize(&admin, &token_id);
 
         (e, vault_id, admin, user)
     }
@@ -241,9 +244,9 @@ mod test {
         let (e, vault_id, _admin, user) = setup();
         let vault = VaultContractClient::new(&e, &vault_id);
 
-        vault.deposit(&user, &100).expect("deposit should succeed");
+        vault.deposit(&user, &100);
 
-        let totals = vault.totals().expect("totals should exist");
+        let totals = vault.totals();
         assert_eq!(totals.total_deposited, 100);
         assert_eq!(totals.total_distributed, 0);
     }
@@ -254,11 +257,9 @@ mod test {
         let vault = VaultContractClient::new(&e, &vault_id);
         let recipient = Address::generate(&e);
 
-        vault
-            .distribute(&recipient, &30)
-            .expect("distribution should succeed");
+        vault.distribute(&recipient, &30);
 
-        let totals = vault.totals().expect("totals should exist");
+        let totals = vault.totals();
         assert_eq!(totals.total_deposited, 0);
         assert_eq!(totals.total_distributed, 30);
     }

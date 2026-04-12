@@ -176,14 +176,12 @@ mod test {
 
     fn init_contract(e: &Env, client: &TokenContractClient<'_>, admin: &Address) {
         e.mock_all_auths();
-        client
-            .initialize(
-                admin,
-                &String::from_str(e, "Stellar Vault Token"),
-                &String::from_str(e, "SVT"),
-                &7,
-            )
-            .expect("initialize should succeed");
+        client.initialize(
+            admin,
+            &String::from_str(e, "Stellar Vault Token"),
+            &String::from_str(e, "SVT"),
+            &7,
+        );
     }
 
     #[test]
@@ -192,7 +190,7 @@ mod test {
         let client = client(&e);
         init_contract(&e, &client, &admin);
 
-        let metadata = client.metadata().expect("metadata should exist");
+        let metadata = client.metadata();
         assert_eq!(metadata.name, String::from_str(&e, "Stellar Vault Token"));
         assert_eq!(metadata.symbol, String::from_str(&e, "SVT"));
         assert_eq!(metadata.decimals, 7);
@@ -206,10 +204,10 @@ mod test {
         let client = client(&e);
         init_contract(&e, &client, &admin);
 
-        client.mint(&user, &1_500).expect("mint should succeed");
+        client.mint(&user, &1_500);
 
         assert_eq!(client.balance(&user), 1_500);
-        assert_eq!(client.metadata().unwrap().total_supply, 1_500);
+        assert_eq!(client.metadata().total_supply, 1_500);
     }
 
     #[test]
@@ -219,36 +217,42 @@ mod test {
         let recipient = Address::generate(&e);
         init_contract(&e, &client, &admin);
 
-        client.mint(&user, &2_000).expect("mint should succeed");
-        client
-            .transfer(&user, &recipient, &750)
-            .expect("transfer should succeed");
+        client.mint(&user, &2_000);
+        client.transfer(&user, &recipient, &750);
 
         assert_eq!(client.balance(&user), 1_250);
         assert_eq!(client.balance(&recipient), 750);
-        assert_eq!(client.metadata().unwrap().total_supply, 2_000);
+        assert_eq!(client.metadata().total_supply, 2_000);
     }
 
     #[test]
-    fn rejects_invalid_amounts() {
+    #[should_panic]
+    fn rejects_invalid_mint_amount() {
         let (e, admin, user) = setup();
         let client = client(&e);
         init_contract(&e, &client, &admin);
 
-        assert_eq!(client.mint(&user, &0), Err(TokenError::InvalidAmount));
-        assert_eq!(client.transfer(&user, &admin, &0), Err(TokenError::InvalidAmount));
+        client.mint(&user, &0);
     }
 
     #[test]
+    #[should_panic]
+    fn rejects_invalid_transfer_amount() {
+        let (e, admin, user) = setup();
+        let client = client(&e);
+        init_contract(&e, &client, &admin);
+
+        client.transfer(&user, &admin, &0);
+    }
+
+    #[test]
+    #[should_panic]
     fn rejects_insufficient_balance() {
         let (e, admin, user) = setup();
         let client = client(&e);
         let recipient = Address::generate(&e);
         init_contract(&e, &client, &admin);
 
-        assert_eq!(
-            client.transfer(&user, &recipient, &1),
-            Err(TokenError::InsufficientBalance)
-        );
+        client.transfer(&user, &recipient, &1);
     }
 }

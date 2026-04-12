@@ -26,7 +26,7 @@ In the Stellar ecosystem, this is useful for teams that need a clean operator in
 - Real-time activity feed with status updates.
 - Transaction status tracking (submitting, submitted, success, failed).
 - Mobile responsive UI optimized for touch interactions.
-- CI/CD pipeline with lint, test, and build validation.
+- CI/CD pipeline with separate frontend and smart-contract validation jobs.
 - Structured error handling system for wallet, simulation, and RPC failures.
 
 ## 5. Tech Stack
@@ -152,11 +152,23 @@ Notes:
 
 ## 13. CI/CD Pipeline
 
-GitHub Actions workflow runs on push and pull requests and validates:
+GitHub Actions workflow runs on push and pull requests and validates both application layers.
 
-- lint
-- test
-- build
+**Frontend job (Node.js):**
+- `npm ci`
+- `npm run lint`
+- `npm run test`
+- `npm run build`
+
+**Smart contracts job (Rust/Soroban):**
+- `cargo fmt --all -- --check`
+- `cargo clippy --workspace --all-targets -- -D warnings`
+- `cargo test --workspace --locked`
+- `cargo build -p stellar-vault-token --target wasm32v1-none --release --locked`
+- `cargo build -p stellar-vault-contract --target wasm32v1-none --release --locked`
+- Upload compiled WASM artifacts (`stellar_vault_token.wasm`, `stellar_vault_contract.wasm`)
+
+Workflow file: `.github/workflows/ci.yml`
 
 ### CI/CD Status
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/7b54a7cb-0d4c-4fed-89f2-65a0002cf0bf" />
@@ -170,11 +182,18 @@ Run tests with:
 npm run test
 ```
 
+Run smart contract tests with:
+
+```bash
+cargo test --workspace --locked
+```
+
 What is tested:
 
 - Validation logic (amount parsing and guards).
 - UI behavior (status badge rendering and state mapping).
 - Transaction logic (tracker state transitions and activity writes).
+- Soroban token/vault contract unit tests.
 
 ## 15. Mobile Responsiveness
 

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" fill="none">
+  <rect width="1200" height="650" rx="28" fill="#0B1220"/>
+  <rect x="36" y="36" width="1128" height="578" rx="20" fill="#0F172A" stroke="#1E293B"/>
+  <rect x="36" y="36" width="1128" height="52" rx="20" fill="#111827"/>
+  <circle cx="66" cy="62" r="7" fill="#EF4444"/>
+  <circle cx="90" cy="62" r="7" fill="#F59E0B"/>
+  <circle cx="114" cy="62" r="7" fill="#22C55E"/>
+  <text x="150" y="69" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600">npm run test</text>
+
+  <text x="66" y="132" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">&gt; stellar-vault-ops@0.0.0 test</text>
+  <text x="66" y="168" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">&gt; vitest run</text>
+
+  <text x="66" y="238" fill="#38BDF8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700">RUN  v3.2.4  /Users/riteshrajpurohit/Desktop/Level-4 VS CODE</text>
+
+  <rect x="66" y="272" width="1068" height="58" rx="14" fill="#0B1220" stroke="#1E293B"/>
+  <text x="90" y="308" fill="#22C55E" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700">✓ tests/useTransactionTracker.test.tsx (2 tests)</text>
+
+  <rect x="66" y="340" width="1068" height="58" rx="14" fill="#0B1220" stroke="#1E293B"/>
+  <text x="90" y="376" fill="#22C55E" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700">✓ tests/status-badge.test.tsx (3 tests)</text>
+
+  <rect x="66" y="408" width="1068" height="58" rx="14" fill="#0B1220" stroke="#1E293B"/>
+  <text x="90" y="444" fill="#22C55E" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700">✓ tests/token.validation.test.ts (3 tests)</text>
+
+  <text x="66" y="506" fill="#E2E8F0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">Test Files  3 passed (3)</text>
+  <text x="66" y="538" fill="#E2E8F0" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">Tests       8 passed (8)</text>
+  <text x="66" y="570" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">Submission-ready screenshot for README review</text>
+</svg>

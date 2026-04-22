@@ -2,6 +2,8 @@
 
 Production-grade Stellar Web3 vault operations dashboard for real token movement, live transaction observability, and Soroban contract interaction.
 
+[![CI/CD Pipeline](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/actions/workflows/ci.yml/badge.svg)](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/actions/workflows/ci.yml)
+
 ## 1. Project Title + Tagline
 
 **Stellar Vault Ops** is a modern Web3 SaaS-style operations console for managing token deposits, distributions, and on-chain activity on Stellar Testnet.
@@ -10,7 +12,6 @@ Production-grade Stellar Web3 vault operations dashboard for real token movement
 
 - 🔗 Live App: https://stellar-vault-ops.vercel.app/
 - 🎥 Demo Video: https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing
-
 
 ## 3. Overview
 
@@ -155,12 +156,14 @@ Notes:
 GitHub Actions workflow runs on push and pull requests and validates both application layers.
 
 **Frontend job (Node.js):**
+
 - `npm ci`
 - `npm run lint`
 - `npm run test`
 - `npm run build`
 
 **Smart contracts job (Rust/Soroban):**
+
 - `cargo fmt --all -- --check`
 - `cargo clippy --workspace --all-targets -- -D warnings`
 - `cargo test --workspace --locked`
@@ -171,8 +174,8 @@ GitHub Actions workflow runs on push and pull requests and validates both applic
 Workflow file: `.github/workflows/ci.yml`
 
 ### CI/CD Status
-<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/7b54a7cb-0d4c-4fed-89f2-65a0002cf0bf" />
 
+<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/7b54a7cb-0d4c-4fed-89f2-65a0002cf0bf" />
 
 ## 14. Testing
 
@@ -195,6 +198,10 @@ What is tested:
 - Transaction logic (tracker state transitions and activity writes).
 - Soroban token/vault contract unit tests.
 
+### Test Run Screenshot
+
+<img width="1200" alt="Test run showing at least 3 tests passing" src="docs/screenshots/ci-tests-passing.svg" />
+
 ## 15. Mobile Responsiveness
 
 The UI follows a mobile-first responsive approach:
@@ -205,27 +212,30 @@ The UI follows a mobile-first responsive approach:
 
 ## 16. Screenshots
 
-### Dashboard: 
+### Dashboard:
+
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 14 28 AM" src="https://github.com/user-attachments/assets/0208e560-4050-4856-aff5-eabb06fa686e" />
 
 ### Wallet Connected:
+
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 14 55 AM" src="https://github.com/user-attachments/assets/2b42cc2e-a2ad-4250-acd3-b8dbbfecb775" />
 
 ### Mobile View:
+
 <img width="314" height="677" alt="Screenshot 2026-04-12 at 4 38 25 AM" src="https://github.com/user-attachments/assets/c1d2cbc2-0989-4ca2-b034-5c27c1ee6fdf" />
 
 <img width="307" height="671" alt="Screenshot 2026-04-12 at 4 38 53 AM" src="https://github.com/user-attachments/assets/e6555702-3757-43bc-b02a-65ea621cc4c4" />
 
-
-
 ### Transaction Success:
+
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 19 20 AM" src="https://github.com/user-attachments/assets/c2785894-f0a3-4f05-a304-66fc9c164b10" />
 
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 20 10 AM" src="https://github.com/user-attachments/assets/81cfc500-2228-4543-aa6d-7e294d826075" />
 
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 20 18 AM" src="https://github.com/user-attachments/assets/dfda6fe4-a316-450f-8783-b628ef49ad60" />
 
-### CI/CD Pipeline: 
+### CI/CD Pipeline:
+
 <img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/9abb268d-4766-4760-aa6b-809a2eb092f5" />
 
 ## 17. Project Structure

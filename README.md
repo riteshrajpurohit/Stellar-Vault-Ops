@@ -200,7 +200,8 @@ What is tested:
 
 ### Test Run Screenshot
 
-<img width="1200" alt="Test run showing at least 3 tests passing" src="docs/screenshots/ci-tests-passing.svg" />
+<img width="954" height="423" alt="Screenshot 2026-04-22 at 7 59 24 PM" src="https://github.com/user-attachments/assets/73d8ba75-9b37-4ae7-a3fb-974be191c948" />
+
 
 ## 15. Mobile Responsiveness
 

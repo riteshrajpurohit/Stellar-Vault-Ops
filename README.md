@@ -1,6 +1,6 @@
 # Stellar Vault Ops
 
-Production-grade Stellar Web3 vault operations dashboard for real token movement, live transaction observability, and Soroban contract interaction.
+Production-grade Stellar Web3 vault operations dashboard for real token movement, live transaction observability, and Soroban contract interaction....
 
 [![CI/CD Pipeline](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/actions/workflows/ci.yml/badge.svg)](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/actions/workflows/ci.yml)
 

@@ -175,7 +175,8 @@ Workflow file: `.github/workflows/ci.yml`
 
 ### CI/CD Status
 
-<img width="1470" height="834" alt="Screenshot 2026-04-12 at 4 28 41 AM" src="https://github.com/user-attachments/assets/7b54a7cb-0d4c-4fed-89f2-65a0002cf0bf" />
+<img width="1470" height="956" alt="Screenshot 2026-07-09 at 5 25 31 PM" src="https://github.com/user-attachments/assets/8328ac5f-8f74-4701-a24e-985ae3ee7657" />
+
 
 ## 14. Testing
 

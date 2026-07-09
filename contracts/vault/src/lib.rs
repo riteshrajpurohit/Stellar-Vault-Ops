@@ -1,5 +1,5 @@
 //! Stellar Vault Ops - Soroban Vault Smart Contract
-//! 
+//!
 //! Implements a secure vault contract managing aggregate deposits and distributions
 //! of Soroban tokens, utilizing inter-contract calls for execution.
 

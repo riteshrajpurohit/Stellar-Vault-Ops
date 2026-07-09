@@ -1,3 +1,6 @@
+# Stellar Vault Ops - Continuous Integration Pipeline
+# Verifies both React frontend (Lint, Test, Build) and Rust/Soroban Smart Contracts (Format, Clippy, Test, Build)
+
 name: CI
 
 on:

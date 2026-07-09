@@ -1,3 +1,9 @@
+/**
+ * UI Component Tests - StatusBadge
+ * 
+ * Verifies that the StatusBadge component correctly renders
+ * label states (Success, Failed, Pending) based on the transaction status.
+ */
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { StatusBadge } from "@/components/StatusBadge";

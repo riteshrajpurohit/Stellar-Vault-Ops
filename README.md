@@ -258,9 +258,9 @@ Level 5 requires **50+ active testnet users**, real transaction activity, active
 ### Onboarding & Feedback Access Links
 - **📋 Live Intake Form:** [Google Form](https://forms.gle/tTfAraWgY6nqtCuZA)
 - **📊 Live Export Responses:** [Google Sheets Responses Sheet](https://docs.google.com/spreadsheets/d/1QkhFzsTeqKYlsigBqoPjDJsMpC4Xts5WzWZX-6zS-Q0/edit?usp=sharing)
-- **📥 Formatted Excel Workbook:** [stellar-vault-ops-level-5-feedback.xlsx](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/stellar-vault-ops-level-5-feedback.xlsx)
-- **📄 CSV Export Workbook:** [stellar-vault-ops-level-5-feedback.csv](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/stellar-vault-ops-level-5-feedback.csv)
-- **🔍 Detailed Onboarding Proof:** [users.md](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/users.md)
+- **📥 Formatted Excel Workbook:** [stellar-vault-ops-level-5-feedback.xlsx](./docs/level-5/stellar-vault-ops-level-5-feedback.xlsx)
+- **📄 CSV Export Workbook:** [stellar-vault-ops-level-5-feedback.csv](./docs/level-5/stellar-vault-ops-level-5-feedback.csv)
+- **🔍 Detailed Onboarding Proof:** [users.md](./docs/level-5/users.md)
 
 ### Feedback Export Summary (55 Users)
 
@@ -272,7 +272,7 @@ Level 5 requires **50+ active testnet users**, real transaction activity, active
 | **Average Ease of Use** | 4.13 / 5 | Rating for onboarding, simulation, and writes. |
 | **Mainnet Reuse Intent** | 42 Yes / 13 Maybe | Users intending to use the product live. |
 
-> 🔍 **Detailed Onboarding Proof:** The full verified list of 55 users, including their names, email addresses, Stellar Testnet wallet addresses, primary actions, and on-chain transaction hashes is maintained in [users.md](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/users.md).
+> 🔍 **Detailed Onboarding Proof:** The full verified list of 55 users, including their names, email addresses, Stellar Testnet wallet addresses, primary actions, and on-chain transaction hashes is maintained in [users.md](./docs/level-5/users.md).
 
 ## 18. User Feedback Iteration Summary
 
@@ -408,9 +408,9 @@ Related commit links:
 - [ ] **Pitch Deck/PPT Link**: [Stellar Vault Ops Pitch Deck](https://docs.google.com/presentation/d/1234567890/edit?usp=sharing) *(Note: Replace with your final slide deck URL)*
 - [x] **Google Form Link**: [Stellar User Feedback Form](https://forms.gle/tTfAraWgY6nqtCuZA)
 - [x] **Google Sheets Response Export Link**: [Live Response Spreadsheet](https://docs.google.com/spreadsheets/d/1QkhFzsTeqKYlsigBqoPjDJsMpC4Xts5WzWZX-6zS-Q0/edit?usp=sharing)
-- [x] **Excel Feedback Workbook** linked: [stellar-vault-ops-level-5-feedback.xlsx](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/stellar-vault-ops-level-5-feedback.xlsx) (and [stellar-vault-ops-level-5-feedback.csv](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/stellar-vault-ops-level-5-feedback.csv))
-- [x] **Proof of 50+ Real Testnet Users**: Onboarding roster updated in [users.md](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/users.md).
-- [x] **Real Transaction Activity Proof**: Direct transaction hashes included in the onboarding roster in [users.md](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/docs/level-5/users.md).
+- [x] **Excel Feedback Workbook** linked: [stellar-vault-ops-level-5-feedback.xlsx](./docs/level-5/stellar-vault-ops-level-5-feedback.xlsx) (and [stellar-vault-ops-level-5-feedback.csv](./docs/level-5/stellar-vault-ops-level-5-feedback.csv))
+- [x] **Proof of 50+ Real Testnet Users**: Onboarding roster updated in [users.md](./docs/level-5/users.md).
+- [x] **Real Transaction Activity Proof**: Direct transaction hashes included in the onboarding roster in [users.md](./docs/level-5/users.md).
 - [x] **User Feedback Iteration Summary**: Completed in Section 18.
 
 ---

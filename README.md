@@ -16,8 +16,8 @@ Production-grade Stellar Web3 vault operations dashboard for real token movement
 - 📝 **Level 6 Intake Form:** [Google Form](https://forms.gle/vP67tL7Xk6nqtL6V6)
 - 📈 **Level 6 Responses Sheet:** [Google Sheets Responses](https://docs.google.com/spreadsheets/d/1QkhFzsTeqKYlsigBqoPjDJsMpC4Xts5WzWZX-6zS-Q0/edit?usp=sharing)
 - 🛡️ **Smart Contract Audit / Review:** [docs/level-6/security_review.md](./docs/level-6/security_review.md)
-- 📣 **Product Launch Post:** [Twitter/X Launch Thread](https://x.com/ritesh_web3/status/1785293740294729103)
-- ✍️ **Technical Contribution / Blog:** [Medium Article](https://medium.com/@riteshrajpurohit/building-secure-treasury-vaults-on-stellar-with-soroban-92b450c2ea11)
+- 📣 **Product Launch Post:** [Twitter/X Launch Thread](https://x.com/riteshraj05/status/2078184625512542698?s=20)
+- ✍️ **Technical Contribution / Blog:** [Forum Article](https://dev.to/riteshrajpurohit/building-secure-observable-treasury-vaults-on-stellar-with-soroban-18be)
 - 📥 **Feedback Excel Workbook:** [stellar-vault-ops-level-6-feedback.xlsx](./docs/level-6/stellar-vault-ops-level-6-feedback.xlsx)
 - 🔍 **Detailed 100-User Roster:** [users.md](./docs/level-6/users.md)
 

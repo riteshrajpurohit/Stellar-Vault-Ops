@@ -405,7 +405,7 @@ Feedback from the Level 6 collection process from our **100 Indian testers** wil
 
 ---
 
-## 24. Level 6 Submission Checklist
+## 24. Level Submission Checklist
 
 - [x] **Public GitHub Repository** is configured: https://github.com/riteshrajpurohit/Stellar-Vault-Ops
 - [x] **README with Complete Documentation** detailing mainnet details, user onboarding, and architecture.

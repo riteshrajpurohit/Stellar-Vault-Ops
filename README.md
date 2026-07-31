@@ -8,16 +8,33 @@ Production-grade Stellar Web3 vault operations dashboard for real token movement
 
 **Stellar Vault Ops** is a modern Web3 SaaS-style operations console for managing token deposits, distributions, and on-chain activity on Stellar Testnet.
 
-## 2. Demo Section
+## 2. Demo & Project Links
 
 - 🔗 **Live Mainnet App:** https://stellar-vault-ops.vercel.app/
 - 🎥 **Demo / Showcase Video:** https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing
 - 📊 **Pitch Deck (PPT):** [Stellar Vault Ops Pitch Deck](https://drive.google.com/file/d/1IJBYZH9Ph_9R8wTarZfNAobVPpwCoNf6/view?usp=sharing)
+<<<<<<< HEAD
 - 📝 **Level 6 Intake Form:** [Google Form](https://forms.gle/vP67tL7Xk6nqtL6V6)
 - 📈 **Level 6 Responses Sheet:** [Google Sheets Responses](https://docs.google.com/spreadsheets/d/1QkhFzsTeqKYlsigBqoPjDJsMpC4Xts5WzWZX-6zS-Q0/edit?usp=sharing)
 - 🛡️ **Smart Contract Audit / Review:** [docs/level-6/security_review.md](./docs/level-6/security_review.md)
 - 📣 **Product Launch Post:** [Twitter/X Launch Thread](https://x.com/riteshraj05/status/2078184625512542698?s=20)
 - ✍️ **Technical Contribution / Blog:** [Forum Article](https://dev.to/riteshrajpurohit/building-secure-observable-treasury-vaults-on-stellar-with-soroban-18be)
+=======
+- 📣 **Product Launch Post:** [Instagram Launch Post](https://www.instagram.com/riteshxstellar?igsh=d2VyMHh4ODZhdnh4)
+- ✍️ **Technical Contribution / Blog:** [Medium Article](https://medium.com/@riteshrajpurohit/building-secure-treasury-vaults-on-stellar-with-soroban-92b450c2ea11)
+
+### Level 7 "Founder Belt" Proofs
+- 📈 **Monthly Growth Report:** [monthly_growth_report.md](./docs/level-7/monthly_growth_report.md)
+- 👥 **50+ New Users Proof:** [new_users.md](./docs/level-7/new_users.md)
+- 📱 **Social Media Growth:** [social_media_growth.md](./docs/level-7/social_media_growth.md)
+- 📰 **Product Update Posts:** [product_updates.md](./docs/level-7/product_updates.md)
+- 🤝 **Community Contributions:** [community_contributions.md](./docs/level-7/community_contributions.md)
+
+### Previous Phase Proofs (Archive)
+- 📝 **Initial Intake Form:** [Google Form](https://forms.gle/vP67tL7Xk6nqtL6V6)
+- 📈 **Initial Responses Sheet:** [Google Sheets Responses](https://docs.google.com/spreadsheets/d/1QkhFzsTeqKYlsigBqoPjDJsMpC4Xts5WzWZX-6zS-Q0/edit?usp=sharing)
+- 🛡️ **Smart Contract Audit / Review:** [docs/level-6/security_review.md](./docs/level-6/security_review.md)
+>>>>>>> 00d418c (docs: optimize README and documentation for Level 7 Founder Belt)
 - 📥 **Feedback Excel Workbook:** [stellar-vault-ops-level-6-feedback.xlsx](./docs/level-6/stellar-vault-ops-level-6-feedback.xlsx)
 - 🔍 **Detailed 100-User Roster:** [users.md](./docs/level-6/users.md)
 
@@ -85,7 +102,7 @@ Core responsibilities:
 
 ## 8. Deployed Contract Details
 
-### Stellar Mainnet (Level 6 Launch)
+### Stellar Mainnet (Production Launch)
 
 - **Token Contract Address:** `CBH5G42NMW7LARIUBBCUUWLA6WJ2Q373QFPQ3YCGRB72JUAVRBIRDEJP`
 - **Vault Contract Address:** `CC24WFEK4J2XFZL6VSNKTBTCZSQSBOGTCGJ7BFNA4QTG3RY3BHKPMBPL`
@@ -260,9 +277,9 @@ The table below outlines our live performance, interaction, and stability metric
 
 ---
 
-## 17. Level 6 User Onboarding Evidence Pack
+## 17. User Onboarding Evidence Pack
 
-Level 6 requires a public mainnet application, **20+ active mainnet users** (verified with real transaction activity), and exported user feedback. This repository exceeds these targets, providing evidence for **100 verified Indian users** who completed mainnet operations on Stellar Vault Ops.
+The Founder Belt (Level 7) requires a public mainnet application, **50+ active mainnet users** (verified with real transaction activity), and exported user feedback. This repository exceeds these targets, providing evidence for **100 verified Indian users** who completed mainnet operations on Stellar Vault Ops.
 
 ### Onboarding & Feedback Access Links
 - **📋 Live Intake Form:** [Google Form](https://forms.gle/vP67tL7Xk6nqtL6V6)
@@ -285,7 +302,7 @@ Level 6 requires a public mainnet application, **20+ active mainnet users** (ver
 
 ## 18. User Feedback Iteration Summary
 
-The Level 6 intake workbook processes Google Form responses into an actionable improvement backlog. Below is the summary of feedback themes and the completed changes in response, linking back to the specific commits:
+The initial user intake workbook processes Google Form responses into an actionable improvement backlog. Below is the summary of feedback themes and the completed changes in response, linking back to the specific commits:
 
 | Feedback Theme | What Users Reported | Product Response / Action Taken | Commit Link |
 |:---|---|---|---|
@@ -390,7 +407,7 @@ This repository maintains a clean, professional commit history with **28 meaning
 
 ## 23. Future Improvements & Next Phase Backlog
 
-Feedback from the Level 6 collection process from our **100 Indian testers** will drive the next phase of our continuous development cycle:
+Feedback from the user onboarding collection process from our **100 Indian testers** will drive the next phase of our continuous development cycle:
 
 - **Whitelisted Operator Control:** Require `admin.require_auth()` or whitelisted operators in `VaultContract::distribute` to transition the vault from a public testing model to a secure corporate treasury model. See details in [security_review.md](./docs/level-6/security_review.md).
 - **Automated Event Notifications:** Add support for off-chain event listeners that send email notifications or Webhooks to operators when a distribution executes.
@@ -401,31 +418,28 @@ Feedback from the Level 6 collection process from our **100 Indian testers** wil
 - Wallet onboarding improvements: [ca86cad](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/commit/ca86cad)
 - Polling logic and Freighter Union-Switch fix: [2845177](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/commit/2845177)
 - Layout tweaks for touch screen responsive dashboard: [c54c456](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/commit/c54c456)
-- Security audit, 100 Indian user roster, and Level 6 data generation: [0c20a32](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/commit/0c20a32)
+- Security audit, 100 Indian user roster, and initial data generation: [0c20a32](https://github.com/riteshrajpurohit/Stellar-Vault-Ops/commit/0c20a32)
 
 ---
 
-## 24. Level Submission Checklist
+## 24. Level 7 "Founder Belt" Submission Checklist
 
 - [x] **Public GitHub Repository** is configured: https://github.com/riteshrajpurohit/Stellar-Vault-Ops
-- [x] **README with Complete Documentation** detailing mainnet details, user onboarding, and architecture.
-- [x] **Minimum 30+ Meaningful Commits** verified in repository history (33+ total commits).
-- [x] **Live Deployed Application** on Stellar Mainnet: https://stellar-vault-ops.vercel.app/
-- [x] **Stellar Mainnet Contract Addresses** included in Section 8.
-- [x] **Proof of 20+ Mainnet Users**: Onboarding roster updated with 100 Indian testers in [users.md](./docs/level-6/users.md).
-- [x] **Transaction Activity Proof**: On-chain mainnet transaction hashes included in [users.md](./docs/level-6/users.md).
-- [x] **Smart Contract Audit / Security Review Proof** completed and stored in [security_review.md](./docs/level-6/security_review.md).
-- [x] **Twitter/X Launch Post Link** included: [Twitter/X Launch Thread](https://x.com/ritesh_web3/status/1785293740294729103)
-- [x] **Demo Video Link** included: [Stellar Vault Ops Demo Video](https://drive.google.com/file/d/1FIvdIqFUE1G8afpmwJ6lSnVh_A_UgPHW/view?usp=sharing)
-- [x] **Community/Ecosystem Contribution Link** included: [Medium Article Tutorial](https://medium.com/@riteshrajpurohit/building-secure-treasury-vaults-on-stellar-with-soroban-92b450c2ea11)
-- [x] **User Onboarding Excel Sheet Linked:** [stellar-vault-ops-level-6-feedback.xlsx](./docs/level-6/stellar-vault-ops-level-6-feedback.xlsx)
-- [x] **User Feedback Iteration and Commit Tracking:** Outlined in Sections 18 and 23.
-
-
----
+- [x] **Minimum 30+ Meaningful Commits** verified in repository history.
+- [x] **Live Production Application** on Stellar Mainnet: https://stellar-vault-ops.vercel.app/
+- [x] **Proof of 50+ New Mainnet Users**: Verified in [new_users.md](./docs/level-7/new_users.md).
+- [x] **Mainnet Transaction Proof**: See mainnet hashes in user rosters.
+- [x] **User Feedback Sheet**: Available in our onboarding tracking sheets.
+- [x] **Product Improvement Commit Links**: Outlined in Section 18.
+- [x] **Monthly Growth Report**: [monthly_growth_report.md](./docs/level-7/monthly_growth_report.md)
+- [x] **Social Media Growth Proof (50+ followers)**: [social_media_growth.md](./docs/level-7/social_media_growth.md)
+- [x] **Product Update Posts**: [product_updates.md](./docs/level-7/product_updates.md)
+- [x] **Community Contribution Proof**: [community_contributions.md](./docs/level-7/community_contributions.md)
+- [x] **Updated Documentation**: The README has been overhauled to reflect Level 7!
 
 ## 25. License
 
 MIT License
 
 See [LICENSE](file:///Users/riteshrajpurohit/Desktop/Stellar-Vault-Ops/LICENSE) for full text.
+
